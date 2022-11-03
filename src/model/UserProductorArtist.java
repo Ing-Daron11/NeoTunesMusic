@@ -12,6 +12,7 @@ public class UserProductorArtist extends UserProductor{
 
 	public UserProductorArtist(String nickname, String cc, String url){
 		super(nickname, cc, url);
+		 song = new ArrayList<Song>(); 
 	}
 
 	

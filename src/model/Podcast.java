@@ -1,5 +1,29 @@
 package model;
 
-public class Podcast{
-	
+public class Podcast extends Audio{
+
+	private String description;
+	private TypePodcast typePodcast;
+	private int optionTypePodcast;
+
+	/**
+	 * Contructor
+	 */
+	public Podcast(String name, String url, String duration, int reproductions,String description,int optionTypePodcast){
+		super(name, url, duration, reproductions);
+		this.description = description;
+		this.optionTypePodcast = optionTypePodcast;
+		this.typePodcast = TypePodcast.values()[optionTypePodcast];
+	}
+
+
+//----------------------------------------------- Getters and Setters ------------------------------------
+
+	public String getDescription(){
+		return this.description;
+	}
+
+	public TypePodcast getTypePodcast(){
+		return this.typePodcast;
+	}
 }

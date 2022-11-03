@@ -11,6 +11,7 @@ public class UserProductorCreator extends UserProductor{
 	 */
 	public UserProductorCreator(String nickname, String cc, String url){
 		super(nickname, cc, url);
+		 podcast = new ArrayList<Podcast>(); 
 	}
 
 	
