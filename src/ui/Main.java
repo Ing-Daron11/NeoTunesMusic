@@ -53,8 +53,8 @@ public class Main {
 				"2. Add Creator \n" + 
 				"3. Add user standar \n" +
 				"4. Add user premiun \n" +
-				"5. \n" +
-				"6. \n" +
+				"5. Add a song \n" +
+				"6. Add a podcast \n" +
 				"7. \n" +
 				"8. \n" +
 				"0. Exit.\n"; 
@@ -65,6 +65,8 @@ public class Main {
 			String userNickname = "";
 			String userCc = "";
 			String userUrl = "";
+			boolean sw = true;
+			int numPrueba = 0;
 				switch(option){
 					case 1: //Add artist
 						System.out.print("Type the nickname of the artist: ");
@@ -107,6 +109,62 @@ public class Main {
 						userCc = input.next();
 						msj = controller.addUserPremiun(userNickname, userCc);
 						System.out.println(msj);
+
+						break;
+
+					case 5: //Add a song
+						System.out.print("Type the id number of the artist: ");
+						userCc = input.next();
+						if(controller.validateArtistExists(userCc) != -1){
+							System.out.print("Type the name of the song: ");
+							String songName = input.next();
+							System.out.print("Type the url of the song: ");
+							String songUrl = input.next();
+							System.out.print("Type the duration: ");
+							String songDuration = input.next();
+							System.out.print("Type the name of the album: ");
+							String songAlbum = input.next();
+							System.out.print("Type the cost of the song: ");
+							while (!input.hasNextDouble()){
+								input.next();
+								System.out.println("Enter a valid double number ");
+							}
+							double songCost = input.nextDouble();
+							while(sw){
+								System.out.print("Type the genre of the song: \n"+
+												 "0. ROCK \n"+
+												 "1. POP \n"+
+												 "2. TRAP \n"+
+												 "3. HOUSE \n");
+								while (!input.hasNextInt()){
+									input.next();
+									System.out.println("Enter a valid integer number ");
+								}
+								numPrueba = input.nextInt();
+								if(controller.validateCorrectOption(numPrueba)){
+									sw = false;
+									int optionTypeSong = numPrueba;
+									msj = controller.addSong(userCc, songName, songUrl, songDuration, songAlbum, songCost, optionTypeSong);
+									System.out.println(msj);
+								}else {
+									System.out.println("Type a valid number: ");
+								}
+							}
+						}else{
+							System.out.println("The artis wasn't found");
+						}
+
+						break;
+
+					case 6:
+
+						break;
+
+					case 7:
+
+						break;
+
+					case 8:
 
 						break;
 

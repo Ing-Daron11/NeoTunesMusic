@@ -8,11 +8,11 @@ public abstract class Audio{
 	private String duration;
 	private int reproductions;
 
-	public Audio(String name, String url, String duration, int reproductions){
+	public Audio(String name, String url, String duration){
 		this.name = name;
 		this.url = url;
 		this.duration = duration;
-		this.reproductions = reproductions;
+		this.reproductions = 0;
 	}
 
 

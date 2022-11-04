@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class UserProductorArtist extends UserProductor{
 
-	private ArrayList<Song> song;
+	private ArrayList<Song> songs;
 
 	/**
 	 * Constructor
@@ -12,8 +12,24 @@ public class UserProductorArtist extends UserProductor{
 
 	public UserProductorArtist(String nickname, String cc, String url){
 		super(nickname, cc, url);
-		 song = new ArrayList<Song>(); 
+		 songs = new ArrayList<Song>(); 
 	}
+
+	public String addSongToArtist(Song newSong){
+		String msj = "";
+		if(songs.add(newSong)){
+			msj = "The song was added succesfully";
+		}else{
+			msj = "The Song wasn't added due to an error. Sorry";
+		}
+		return msj;
+	}
+
+
+    public String getCc(){
+      return super.cc;
+    }
+  
 
 	
 }

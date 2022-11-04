@@ -4,9 +4,9 @@ import java.util.Date;
 
 public abstract class User{
 
-	private String nickname;
-	private String cc;
-	private Date vinculationDate;
+	protected String nickname;
+	protected String cc;
+	protected Date vinculationDate;
 
 	/**
 	 * Contructor

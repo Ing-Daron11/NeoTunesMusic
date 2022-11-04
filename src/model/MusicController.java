@@ -4,18 +4,10 @@ import java.util.ArrayList;
 
 public class MusicController{
 
-	private ArrayList<UserProductorArtist> artists;
-	private ArrayList<UserProductorCreator> creators;
-	private ArrayList<UserCostumerStandar> usersStandar;
-	private ArrayList<UserCostumerPremiun> usersPremiun;
-
+	private ArrayList<User> users;
 
 	public MusicController(){
-		artists = new ArrayList<UserProductorArtist>();
-		creators = new ArrayList<UserProductorCreator>();
-		usersStandar = new ArrayList<UserCostumerStandar>();
-		usersPremiun = new ArrayList<UserCostumerPremiun>();
-
+		users = new ArrayList<User>();
 	}
 
 
@@ -32,7 +24,7 @@ public class MusicController{
 	public String addArtist(String nickname, String cc, String url){
 		String msj = "";
 		UserProductorArtist newArtist = new UserProductorArtist(nickname, cc, url);
-		if(artists.add(newArtist)){
+		if(users.add(newArtist)){
 			msj = "The Artist was added succesfully";
 		}else{
 			msj = "The Artist wasn't added due to an error. Sorry";
@@ -50,7 +42,7 @@ public class MusicController{
 	public String addCreator(String nickname, String cc, String url){
 		String msj = "";
 		UserProductorCreator newCreator = new UserProductorCreator(nickname, cc, url);
-		if(creators.add(newCreator)){
+		if(users.add(newCreator)){
 			msj = "The creator was added succesfully";
 		}else{
 			msj = "The creator wasn't added due to an error. Sorry";
@@ -70,7 +62,7 @@ public class MusicController{
 	public String addUserStandar(String nickname, String cc){
 		String msj = "";
 		UserCostumerStandar newUserStandar = new UserCostumerStandar(nickname, cc);
-		if(usersStandar.add(newUserStandar)){
+		if(users.add(newUserStandar)){
 			msj = "The standar user was added succesfully";
 		}else{
 			msj = "The standar user wasn't added due to an error. Sorry";
@@ -87,7 +79,7 @@ public class MusicController{
 	public String addUserPremiun(String nickname, String cc){
 		String msj = "";
 		UserCostumerPremiun newUserPremiun = new UserCostumerPremiun(nickname, cc);
-		if(usersPremiun.add(newUserPremiun)){
+		if(users.add(newUserPremiun)){
 			msj = "The premiun user was added succesfully";
 		}else{
 			msj = "The premiun user wasn't added due to an error. Sorry";
@@ -97,8 +89,47 @@ public class MusicController{
 
 //----------------------------------- Requirement 3 ------------------------------------
 
+//We have to validate if the artist exists
+	public int validateArtistExists(String cc){
+		int posArtist = -1;
+		boolean artistExist = false;
+		for(int i = 0; i < users.size() && !artistExist; i++){
+			if(users.get(i) != null){
+				if(users.get(i) instanceof UserProductorArtist){
+					if(((UserProductorArtist)(users.get(i))).getCc().equalsIgnoreCase(cc)){
+						artistExist = true;
+						posArtist = i;
+					}
+				}
+			}
+		}
+		return posArtist;
+	}
 
 	
+	public String addSong(String artistCc, String name, String url, String duration, String album, double cost, int optionTypeSong){
+		String msj = "";
+		int posArtist = validateArtistExists(artistCc);
+		if(posArtist != -1){
+			Song newSong = new Song(name, url, duration, album, cost, optionTypeSong);
+			msj = ((UserProductorArtist)(users.get(posArtist))).addSongToArtist(newSong);
+		}else{
+			msj = "The artis wasn't found";
+		}
+		return msj;
+		
+	}
+
+	public boolean validateCorrectOption(int numprueba){
+		boolean isCorrect = false;
+		if(numprueba >= 0 && numprueba <= 3){
+			isCorrect = true;
+		}
+		return isCorrect;
+	}
+
+
+
 
 
 

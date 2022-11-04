@@ -11,11 +11,11 @@ public class Song extends Audio{
 	/**
 	 * Contructor
 	 */
-	public Song(String name, String url, String duration, int reproductions, String album, double cost,int sells, int optionTypeSong){
-		super(name, url, duration, reproductions);
+	public Song(String name, String url, String duration, String album, double cost, int optionTypeSong){
+		super(name, url, duration);
 		this.album = album;
 		this.cost = cost;
-		this.sells = sells;
+		this.sells = 0;
 		this.optionTypeSong = optionTypeSong;
 		this.typeSong = TypeSong.values()[optionTypeSong];
 	}

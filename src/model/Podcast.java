@@ -9,8 +9,8 @@ public class Podcast extends Audio{
 	/**
 	 * Contructor
 	 */
-	public Podcast(String name, String url, String duration, int reproductions,String description,int optionTypePodcast){
-		super(name, url, duration, reproductions);
+	public Podcast(String name, String url, String duration,String description,int optionTypePodcast){
+		super(name, url, duration);
 		this.description = description;
 		this.optionTypePodcast = optionTypePodcast;
 		this.typePodcast = TypePodcast.values()[optionTypePodcast];
