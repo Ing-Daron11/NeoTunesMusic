@@ -4,16 +4,29 @@ import java.util.ArrayList;
 
 public class UserProductorCreator extends UserProductor{
 
-	private ArrayList<Podcast> podcast;
+	private ArrayList<Podcast> podcasts;
 
 	/**
 	 * Contructor
 	 */
 	public UserProductorCreator(String nickname, String cc, String url){
 		super(nickname, cc, url);
-		 podcast = new ArrayList<Podcast>(); 
+		 podcasts = new ArrayList<Podcast>(); 
 	}
 
+	public String addPodcastToCreator(Podcast newPodcast){
+		String msj = "";
+		if(podcasts.add(newPodcast)){
+			msj = "The Podcast was added succesfully";
+		}else{
+			msj = "The Podcast wasn't added due to an error. Sorry";
+		}
+		return msj;
+	}
+
+	 public String getCc(){
+      return super.cc;
+    }
 	
 
 }

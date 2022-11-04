@@ -106,7 +106,6 @@ public class MusicController{
 		return posArtist;
 	}
 
-	
 	public String addSong(String artistCc, String name, String url, String duration, String album, double cost, int optionTypeSong){
 		String msj = "";
 		int posArtist = validateArtistExists(artistCc);
@@ -120,6 +119,34 @@ public class MusicController{
 		
 	}
 
+	public int validateCreatorExists(String cc){
+		int posCreator = -1;
+		boolean creatorExist = false;
+		for(int i = 0; i < users.size() && !creatorExist; i++){
+			if(users.get(i) != null){
+				if(users.get(i) instanceof UserProductorCreator){
+					if(((UserProductorCreator)(users.get(i))).getCc().equalsIgnoreCase(cc)){
+						creatorExist = true;
+						posCreator = i;
+					}
+				}
+			}
+		}
+		return posCreator;
+	}
+
+	public String addPodcast(String creatorCc, String name, String url, String duration,String description, int optionTypePodcast){
+		String msj = "";
+		int posCreator = validateCreatorExists(creatorCc);
+		if(posCreator != -1){
+			Podcast newPodcast = new Podcast(name, url, duration, description, optionTypePodcast);
+			msj = ((UserProductorCreator)(users.get(posCreator))).addPodcastToCreator(newPodcast);
+		}else{
+			msj = "The Creator wasn't found";
+		}
+		return msj;
+	}
+
 	public boolean validateCorrectOption(int numprueba){
 		boolean isCorrect = false;
 		if(numprueba >= 0 && numprueba <= 3){
@@ -128,6 +155,7 @@ public class MusicController{
 		return isCorrect;
 	}
 
+	
 
 
 

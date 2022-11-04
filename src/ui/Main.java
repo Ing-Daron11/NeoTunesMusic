@@ -156,7 +156,42 @@ public class Main {
 
 						break;
 
-					case 6:
+					case 6://Add a podcast
+						System.out.print("Type the id number of the creator: ");
+						userCc = input.next();
+						if(controller.validateCreatorExists(userCc) != -1){
+							System.out.print("Type the name of the podcast: ");
+							String podcastName = input.next();
+							System.out.print("Type the url of the podcast: ");
+							String podcastUrl = input.next();
+							System.out.print("Type the duration: ");
+							String podcastDuration = input.next();
+							System.out.print("Type the description of the Podcast: ");
+							String podcastDescription = input.next();
+							while(sw){
+								System.out.print("Type the genre of the song: \n"+
+												 "0. POLITICS \n"+
+												 "1. ENTERTAINMENT \n"+
+												 "2. VIDEOGAMES \n"+
+												 "3. FASHION \n");
+								while (!input.hasNextInt()){
+									input.next();
+									System.out.println("Enter a valid integer number ");
+								}
+								numPrueba = input.nextInt();
+								if(controller.validateCorrectOption(numPrueba)){
+									sw = false;
+									int optionTypePodcast = numPrueba;
+									msj = controller.addPodcast(userCc, podcastName, podcastUrl, podcastDuration, podcastDescription, optionTypePodcast);
+									System.out.println(msj);
+								}else {
+									System.out.println("Type a valid number: ");
+								}
+							}
+						}else{
+							System.out.println("The creator wasn't found");
+						}
+
 
 						break;
 
