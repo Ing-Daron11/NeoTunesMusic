@@ -11,7 +11,7 @@ public class Song extends Audio{
 	/**
 	 * Contructor
 	 */
-	public Song(String name, String url, String duration, String album, double cost, int optionTypeSong){
+	public Song(String name, String url, int duration, String album, double cost, int optionTypeSong){
 		super(name, url, duration);
 		this.album = album;
 		this.cost = cost;

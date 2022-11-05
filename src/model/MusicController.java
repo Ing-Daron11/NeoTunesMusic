@@ -90,6 +90,11 @@ public class MusicController{
 //----------------------------------- Requirement 3 ------------------------------------
 
 //We have to validate if the artist exists
+	/**
+	 * This method validates if the artis exists
+	 * @param  cc It's the identification of the artist.
+	 * @return posArtist It contains the position of the artist in the arraylist or -1 if it doesn't exist.
+	 */
 	public int validateArtistExists(String cc){
 		int posArtist = -1;
 		boolean artistExist = false;
@@ -106,7 +111,18 @@ public class MusicController{
 		return posArtist;
 	}
 
-	public String addSong(String artistCc, String name, String url, String duration, String album, double cost, int optionTypeSong){
+	/**
+	 * This method add a new song to the arraylist of the Artist
+	 * @param  artistCc       It's the id of the artist
+	 * @param  name           It's the name of the song
+	 * @param  url            It's the url that contains the image of the song
+	 * @param  duration       It contains the duration of the song in seconds
+	 * @param  album          It's the album's name of the song
+	 * @param  cost           The price of the song
+	 * @param  optionTypeSong It contains the genre of the song
+	 * @return msj            A massage that says if it was added succesfully.
+	 */
+	public String addSong(String artistCc, String name, String url, int duration, String album, double cost, int optionTypeSong){
 		String msj = "";
 		int posArtist = validateArtistExists(artistCc);
 		if(posArtist != -1){
@@ -119,6 +135,11 @@ public class MusicController{
 		
 	}
 
+	/**
+	 * This method validates if the creator exists
+	 * @param  cc It's the identification of the creator.
+	 * @return posCreator It contains the position of the creator in the arraylist or -1 if it doesn't exist.
+	 */
 	public int validateCreatorExists(String cc){
 		int posCreator = -1;
 		boolean creatorExist = false;
@@ -135,7 +156,17 @@ public class MusicController{
 		return posCreator;
 	}
 
-	public String addPodcast(String creatorCc, String name, String url, String duration,String description, int optionTypePodcast){
+	/**
+	 * This method add a new podcast to the arraylist of the creator
+	 * @param  creatorCc      It's the id of the artist
+	 * @param  name           It's the name of the song
+	 * @param  url            It's the url that contains the image of the song
+	 * @param  duration       It contains the duration of the song in seconds
+	 * @param  description	  It contains the description of the podcast
+	 * @param  optionTypePodcast It contains the genre of the podcast
+	 * @return msj            A massage that says if it was added succesfully.
+	 */
+	public String addPodcast(String creatorCc, String name, String url, int duration,String description, int optionTypePodcast){
 		String msj = "";
 		int posCreator = validateCreatorExists(creatorCc);
 		if(posCreator != -1){
@@ -147,6 +178,11 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method validates if the answer is between 0 and 3
+	 * @param  numprueba it's the user's answer
+	 * @return isCorrect It's a boolean; true if the answer is between 0 and 3 or False if not.
+	 */
 	public boolean validateCorrectOption(int numprueba){
 		boolean isCorrect = false;
 		if(numprueba >= 0 && numprueba <= 3){
@@ -155,7 +191,10 @@ public class MusicController{
 		return isCorrect;
 	}
 
-	
+//------------------------------- Requeriment 4 -----------------------------------------
+
+
+
 
 
 

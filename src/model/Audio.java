@@ -5,10 +5,10 @@ public abstract class Audio{
 
 	private String name;
 	private String url;
-	private String duration;
+	private int duration;
 	private int reproductions;
 
-	public Audio(String name, String url, String duration){
+	public Audio(String name, String url, int duration){
 		this.name = name;
 		this.url = url;
 		this.duration = duration;
@@ -27,7 +27,7 @@ public abstract class Audio{
 		return this.url;
 	}
 
-	public String getDuration(){
+	public int getDuration(){
 		return this.duration;
 	}
 
