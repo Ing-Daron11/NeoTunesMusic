@@ -206,6 +206,11 @@ public class MusicController{
 
 //------------------------------- Requeriment 4 -----------------------------------------
 
+	/**
+	 * This method validates if the Standar exists
+	 * @param  cc It's the identification of the Standar.
+	 * @return posStandar It contains the position of the Standar in the arraylist or -1 if it doesn't exist.
+	 */
 	public int validateStandarExists(String cc){
 		int posStandar = -1;
 		boolean standarExist = false;
@@ -222,6 +227,13 @@ public class MusicController{
 		return posStandar;
 	}
 
+	/**
+	 * This method allows to add a playlist to the standar user
+	 * @param  standarCc it's the identification of the standar user
+	 * @param  name      It's the name of playlist
+	 * @param  type      it´s the type of the playlist
+	 * @return msj		 It contains the massage that says if it was added or not
+	 */
 	public String addPlaylistToStandar(String standarCc, String name, int type){
 		String msj = "";
 		int posStandar = validateStandarExists(standarCc);
@@ -234,6 +246,11 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method validates if the premium exists
+	 * @param  cc It's the identification of the premium.
+	 * @return posPremium It contains the position of the premium in the arraylist or -1 if it doesn't exist.
+	 */
 	public int validatePremiumExists(String cc){
 		int posPremium = -1;
 		boolean premiumExist = false;
@@ -250,6 +267,13 @@ public class MusicController{
 		return posPremium;
 	}
 
+	/**
+	 * This method allows to add a playlist to the premium user
+	 * @param  standarCc it's the identification of the premuim user
+	 * @param  name      It's the name of playlist
+	 * @param  type      it´s the type of the playlist
+	 * @return msj		 It contains the massage that says if it was added or not
+	 */
 	public String addPlaylistToPremium(String premiumCc, String name, int type){
 		String msj = "";
 		int posPremium = validatePremiumExists(premiumCc);
