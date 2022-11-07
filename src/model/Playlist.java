@@ -9,38 +9,55 @@ public class Playlist{
 	private String name;
 	private int code;
 
-	public static final int ROWS = 4; 
-    public static final int COLUMNS = 4; 
+	public static final int ROWS = 6; 
+    public static final int COLUMNS = 6; 
 
     private int[][] matrix;
 
     /**
     * Constructor
     */
-    public Playlist(String name){
+    public Playlist(String name, int type){
     	this.name = name;
+    	this.code = generateCode(type);
     	audios = new ArrayList<Audio>(10);
     	matrix = new int[ROWS][COLUMNS];
 
     }
 
     /**
-     * @return: String: msj = It contains all the elements of the matrix
+     * This method fill all the matrix
      */
-    public String printIntMatrix(){
-        String msj = ""; 
+    public void filltMatrix(){
         int upperBound = 9;
         int lowerBound = 0;
         int range = (upperBound - lowerBound) + 1;
-
         for(int i = 0; i < ROWS; i++){
-            msj += "\n"; 
             for(int j = 0; j < COLUMNS; j++){
-                matrix[i][j] = (int)(Math.random() * range) + lowerBound;
-                msj += matrix[i][j] + " ";  
+                matrix[i][j] = (int)(Math.random() * range) + lowerBound; 
             }
         }
-        return msj; 
+    }
+
+    /**
+     * This method generates the code automatically based on the matrix and the type of playlist
+     * @param  type It's the type of playlist selected
+     * @return      it's the code already done
+     */
+    public int generateCode(int type){
+    	int code = 0;
+    	if(type == 1){
+    		//generar código para solo songs
+    	}else if(type == 2){
+    		//generar código para solo podcasts
+    	}else if(type == 3){
+    		//generar código para Mix
+    	}
+    	return code;
+    }
+
+    public int getCode(){
+        return this.code;
     }
 
 }

@@ -191,15 +191,75 @@ public class MusicController{
 		return isCorrect;
 	}
 
+	/**
+	 * This method does the same than the previous one, exept because it validates if the number is between 1 and 3.
+	 * @param  numprueba It's the user's answer.
+	 * @return isCorrect It's a boolean; true if the answer is between 1 and 3. False if not.
+	 */
+	public boolean validateCorrectOption2(int numprueba){
+		boolean isCorrect = false;
+		if(numprueba >= 1 && numprueba <=3){
+			isCorrect = true;
+		}
+		return isCorrect;
+	}
+
 //------------------------------- Requeriment 4 -----------------------------------------
 
+	public int validateStandarExists(String cc){
+		int posStandar = -1;
+		boolean standarExist = false;
+		for(int i = 0; i < users.size() && !standarExist; i++){
+			if(users.get(i) != null){
+				if(users.get(i) instanceof UserCostumerStandar){
+					if(((UserCostumerStandar)(users.get(i))).getCc().equalsIgnoreCase(cc)){
+						standarExist = true;
+						posStandar = i;
+					}
+				}
+			}
+		}
+		return posStandar;
+	}
 
+	public String addPlaylistToStandar(String standarCc, String name, int type){
+		String msj = "";
+		int posStandar = validateStandarExists(standarCc);
+		if(posStandar != -1){
+			Playlist newPlalist = new Playlist(name, type);
+			msj = ((UserCostumerStandar)(users.get(posStandar))).addPlaylist(newPlalist);
+		}else{
+			msj = "The standar user wasn't found";
+		}
+		return msj;
+	}
 
+	public int validatePremiumExists(String cc){
+		int posPremium = -1;
+		boolean premiumExist = false;
+		for(int i = 0; i < users.size() && !premiumExist; i++){
+			if(users.get(i) != null){
+				if(users.get(i) instanceof UserCostumerPremiun){
+					if(((UserCostumerPremiun)(users.get(i))).getCc().equalsIgnoreCase(cc)){
+						premiumExist = true;
+						posPremium = i;
+					}
+				}
+			}
+		}
+		return posPremium;
+	}
 
-
-
-
-
-
+	public String addPlaylistToPremium(String premiumCc, String name, int type){
+		String msj = "";
+		int posPremium = validatePremiumExists(premiumCc);
+		if(posPremium != -1){
+			Playlist newPlalist = new Playlist(name, type);
+			msj = ((UserCostumerPremiun)(users.get(posPremium))).addPlaylist(newPlalist);
+		}else{
+			msj = "The premium user wasn't found";
+		}
+		return msj;
+	}
 
 }

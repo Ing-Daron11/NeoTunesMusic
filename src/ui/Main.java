@@ -52,10 +52,10 @@ public class Main {
 				"1. Add artist/Creator \n" +
 				"2. Add standar/premiun \n" + 
 				"3. Add a song/podcast\n" +
+				"4. Create a playlist\n" +
 				"5. \n" +
 				"6. \n" +
 				"7. \n" +
-				"8. \n" +
 				"0. Exit.\n"; 
 		}
 
@@ -67,6 +67,7 @@ public class Main {
 			boolean sw = true;
 			int numPrueba = 0;
 			int option2 = 0;
+			int playListType = 0;
 				switch(option){
 					case 1: //Add artist/creator
 						System.out.print("selct an option:  \n" +
@@ -236,7 +237,52 @@ public class Main {
 
 						break;
 
-					case 4:
+					case 4:// Create a playlist
+						System.out.print("Type the name of the playlist: ");
+						String playListName = input.next();
+						while (sw){
+							System.out.print("Type the type of the playlist: \n" +
+								 			 "1. Solo songs \n"+
+								 			 "2. Solo podcasts \n"+
+								 			 "3. Mix \n");
+							while (!input.hasNextInt()){
+								input.next();
+								System.out.println("Enter a valid integer number ");
+							}
+							numPrueba = input.nextInt();
+							if(controller.validateCorrectOption2(numPrueba)){
+								sw = false;
+								playListType = numPrueba;
+							}else{
+								System.out.print("Type a correct option");
+							}
+						}
+						sw = true;
+						while(sw){
+							System.out.print("What kind of user is going to have the playlist: \n" +
+											 "1. Standar User \n"+
+											 "2. Premiun User\n");
+							while (!input.hasNextInt()){
+								input.next();
+								System.out.println("Enter a valid integer number ");
+							}
+							numPrueba = input.nextInt();
+							if(numPrueba == 1){
+								sw = false;
+								System.out.print("Type the id of the standar user: ");
+								userCc = input.next();
+								msj = controller.addPlaylistToStandar(userCc, playListName, playListType);
+								System.out.println(msj);
+							}else if(numPrueba == 2){
+								sw = false;
+								System.out.print("Type the id of the premium user: ");
+								userCc = input.next();
+								msj = controller.addPlaylistToPremium(userCc, playListName, playListType);
+								System.out.println(msj);
+							}else {
+								System.out.print("Invalid option ");
+							}
+						}
 
 						break;
 
