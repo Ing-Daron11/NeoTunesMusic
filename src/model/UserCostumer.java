@@ -9,6 +9,11 @@ public abstract class UserCostumer extends User{
 		super(nickname, cc); 
 	}
 	
+	
+
+
+
+	
 }
 
 

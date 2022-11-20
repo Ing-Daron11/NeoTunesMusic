@@ -9,6 +9,7 @@ public class UserCostumerStandar extends UserCostumer{
 
 	private ArrayList<Playlist> playlist;
 	private int counterOfPlaylist;
+	private int counterOfSongs;
 
 	/**
 	 * Constructor
@@ -27,7 +28,9 @@ public class UserCostumerStandar extends UserCostumer{
 		String msj = "Maximun capacity reached";
 		if(getCounterOfPlaylist() < SIZE_OF_PLAYLIST){
 			if(playlist.add(objectPlayList)){
-				msj = "The playlist was succesfully aded for the standar user";
+				msj = "The playlist was succesfully aded for the standar user \n" +
+					  "code: " + objectPlayList.getCode() + "\n"+
+					  "name: " + objectPlayList.getName();
 				int counter = +1;
 				setCounterOfPlaylist(counter);
 			}else {
@@ -36,6 +39,66 @@ public class UserCostumerStandar extends UserCostumer{
 		}
 		return msj;
 	}
+
+	public int searchPlaylistByNameStandar(String playlistName){
+		int posPlaylist = -1;
+		boolean playlistExist = false;
+		for(int i = 0; i < playlist.size() && i < SIZE_OF_PLAYLIST && !playlistExist; i++){
+			if(playlist.get(i) !=null){
+				if((playlist.get(i)).getName().equalsIgnoreCase(playlistName)){
+					posPlaylist = i;
+					playlistExist = true;
+				}
+			}
+			
+		}
+		return posPlaylist;
+	}
+
+	public String addAudioToSpecificPlaylist(String playlistName, Audio objectAudio){
+		String msj = "";
+		int posPlaylist = searchPlaylistByNameStandar(playlistName);
+		int typeOfPlaylist = (playlist.get(posPlaylist)).getTypeOption();
+		if(typeOfPlaylist == 1){
+			msj = "Maximun capacity reached";
+			if(getCounterOfSongs() < SIZE_OF_SONGS){
+				int posSong = (playlist.get(posPlaylist)).addSongToPlaylist(objectAudio);
+				if(posSong != -1){
+					msj = "The song was succesfully added";
+				}else{
+					msj = "This playlist is only for songs. Verify if the song exists or select a real song";
+				}
+			}
+			
+		}else if(typeOfPlaylist == 2){
+			int posPodcast = (playlist.get(posPlaylist)).addPodcastToPlaylist(objectAudio);
+			if(posPodcast != -1){
+				msj = "The podcast was succesfully added";
+			}else{
+				msj = "This playlist is only for podcast. Verify if the podcast exists or select a real podcast";
+			}
+
+		}else if(typeOfPlaylist == 3){
+			int posAny = (playlist.get(posPlaylist)).addPodcastToPlaylist(objectAudio);
+			if(posAny != -1){
+				msj = "The Podcast was succesfully added";			
+			}else{
+				msj = "Maximun capacity reached";
+				if(getCounterOfSongs()< SIZE_OF_SONGS){
+					posAny = (playlist.get(posPlaylist)).addSongToPlaylist(objectAudio);
+					msj = "The Song was succesfully added";
+				}
+			}
+		}else{
+			msj = "The audio doesn't exist.";
+		}
+		return msj;
+	}
+	
+
+
+//----------------------------------------------- Getters and Setters ------------------------------------
+
 
     public String getCc(){
       return super.cc;
@@ -49,7 +112,13 @@ public class UserCostumerStandar extends UserCostumer{
     	this.counterOfPlaylist += newCounterOfPlaylist;
     }
   
-  
+  	public int getCounterOfSongs(){
+      return this.counterOfSongs;
+    }
+
+    public void setCounterOfSongs(int newCounterOfSongs){
+    	this.counterOfSongs += newCounterOfSongs;
+    }
 
 
 }

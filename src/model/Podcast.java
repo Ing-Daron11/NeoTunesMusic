@@ -19,6 +19,10 @@ public class Podcast extends Audio{
 
 //----------------------------------------------- Getters and Setters ------------------------------------
 
+	public String getName(){
+		return super.name;
+	}
+	
 	public String getDescription(){
 		return this.description;
 	}

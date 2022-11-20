@@ -53,7 +53,7 @@ public class Main {
 				"2. Add standar/premiun \n" + 
 				"3. Add a song/podcast\n" +
 				"4. Create a playlist\n" +
-				"5. \n" +
+				"5. Edit playlist\n" +
 				"6. \n" +
 				"7. \n" +
 				"0. Exit.\n"; 
@@ -286,8 +286,73 @@ public class Main {
 
 						break;
 
-					case 5:
+					case 5: //Edit playlist
+						System.out.println("Select an option: \n" +
+										   "1. add Song/podcast \n" +
+										   "2. eliminate song/podcast \n");
+						while (!input.hasNextInt()){
+							input.next();
+							System.out.println("Enter a valid integer number ");
+						}
+						numPrueba = input.nextInt();
+						if(numPrueba == 1){ //add Song/podcast
+							while(sw){
+								System.out.print("Type the type of user that is going to add a song or a podcast: \n" +
+												 "1. Standar \n" +
+												 "2. Premium \n");
+								while (!input.hasNextInt()){
+									input.next();
+									System.out.println("Enter a valid integer number ");
+								}
+								int userAnswer = input.nextInt();
+								if(userAnswer == 1){ //standar
+									sw = false;
+									System.out.print("Type the id of the user: ");
+									userCc = input.next();
+									System.out.print("Type the name of the playlist: ");
+									playListName = input.next();
+									int playlistExist = controller.validateIfPlaylistInStandarExists(userCc, playListName);
+									if (playlistExist != -1){ //It means that the playlist exist.
+										System.out.println("Type the name of the podcast or song that you want to add: ");
+										msj = controller.listOfSongsAndPodcasts();
+										System.out.println(msj);
+										String audioName = input.next();
+										msj = controller.addAudioToSpecificUserStandar(userCc, playListName, audioName);
+										System.out.println(msj);
+									}else{
+										System.out.println("The satndar user or the playlist in this standar user does not exist.");
+									}
 
+								}else if(userAnswer == 2){ //Premium
+									sw = false;
+									System.out.print("Type the id of the user: ");
+									userCc = input.next();
+									System.out.print("Type the name of the playlist: ");
+									playListName = input.next();
+									int playlistExist = controller.validateIfPlaylistInStandarExists(userCc, playListName);
+									if (playlistExist != -1){ //It means that the playlist exist.
+										System.out.println("Type the name of the podcast or song that you want to add: ");
+										msj = controller.listOfSongsAndPodcasts();
+										System.out.println(msj);
+										String audioName = input.next();
+										msj = controller.addAudioToSpecificUserStandar(userCc, playListName, audioName);
+										System.out.println(msj);
+									}else{
+										System.out.println("The satndar user or the playlist in this standar user does not exist.");
+									}
+
+								}else{
+									System.out.println("Invalid option");
+								}
+							}
+
+						}else if(numPrueba == 2){ //Eliminate song/podcast
+
+						}else{
+							System.out.println("Invalid option");
+						}
+						
+						
 						break;
 
 					case 6:

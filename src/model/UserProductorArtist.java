@@ -9,10 +9,9 @@ public class UserProductorArtist extends UserProductor{
 	/**
 	 * Constructor
 	 */
-
 	public UserProductorArtist(String nickname, String cc, String url){
 		super(nickname, cc, url);
-		 songs = new ArrayList<Song>(); 
+		songs = new ArrayList<Song>();
 	}
 
 	public String addSongToArtist(Song newSong){
@@ -25,6 +24,15 @@ public class UserProductorArtist extends UserProductor{
 		return msj;
 	}
 
+	public String listSongs(){
+		String msj = "";
+		for(int i = 0; i < songs.size(); i++){
+			if(songs.get(i) != null){
+				msj += ((Song)(songs.get(i))).getName() + "\n";
+			}
+		}
+		return msj;
+	}
 
     public String getCc(){
       return super.cc;

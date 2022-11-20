@@ -3,10 +3,10 @@ package model;
 
 public abstract class Audio{
 
-	private String name;
-	private String url;
-	private int duration;
-	private int reproductions;
+	protected String name;
+	protected String url;
+	protected int duration;
+	protected int reproductions;
 
 	public Audio(String name, String url, int duration){
 		this.name = name;
@@ -14,7 +14,6 @@ public abstract class Audio{
 		this.duration = duration;
 		this.reproductions = 0;
 	}
-
 
 //----------------------------------------------- Getters and Setters ------------------------------------
 

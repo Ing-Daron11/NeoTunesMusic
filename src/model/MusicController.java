@@ -5,9 +5,13 @@ import java.util.ArrayList;
 public class MusicController{
 
 	private ArrayList<User> users;
+    private ArrayList<Audio> totalAudios; //This are all the audios of the System
+
 
 	public MusicController(){
 		users = new ArrayList<User>();
+		totalAudios = new ArrayList<Audio>();
+
 	}
 
 
@@ -128,6 +132,7 @@ public class MusicController{
 		if(posArtist != -1){
 			Song newSong = new Song(name, url, duration, album, cost, optionTypeSong);
 			msj = ((UserProductorArtist)(users.get(posArtist))).addSongToArtist(newSong);
+			totalAudios.add(newSong);
 		}else{
 			msj = "The artis wasn't found";
 		}
@@ -172,6 +177,7 @@ public class MusicController{
 		if(posCreator != -1){
 			Podcast newPodcast = new Podcast(name, url, duration, description, optionTypePodcast);
 			msj = ((UserProductorCreator)(users.get(posCreator))).addPodcastToCreator(newPodcast);
+			totalAudios.add(newPodcast);
 		}else{
 			msj = "The Creator wasn't found";
 		}
@@ -285,5 +291,67 @@ public class MusicController{
 		}
 		return msj;
 	}
+
+//-------------------------------- Requeriment 5------------------------------------------
+
+	public int validateIfPlaylistInStandarExists(String userCc, String playlistName){
+		int posPlaylist = -1;
+		int posStandar = validateStandarExists(userCc);
+		if(posStandar != -1){
+			posPlaylist = ( (UserCostumerStandar)(users.get(posStandar))).searchPlaylistByNameStandar(playlistName);
+		}
+		return posPlaylist;
+	}
+
+	public int validateIfPlaylistInPremuimExists(String userCc, String playlistName){
+		int posPlaylist = -1;
+		int posStandar = validatePremiumExists(userCc);
+		if(posStandar != -1){
+			posPlaylist = ( (UserCostumerPremiun)(users.get(posStandar))).searchPlaylistByNameStandar(playlistName);
+		}
+		return posPlaylist;
+	}
+
+	public String listOfSongsAndPodcasts(){
+		String msj = "";
+		String msj1 = "";
+		String msj2 = "";
+		for(int i = 0; i < users.size(); i++){
+			if(users.get(i) != null){
+				if(users.get(i) instanceof UserProductorArtist){
+					msj1 = ((UserProductorArtist)(users.get(i))).listSongs();
+				}else if(users.get(i) instanceof UserProductorCreator){
+					msj2 = ( (UserProductorCreator)(users.get(i))).listPodcasts();
+				}
+			}
+		}
+		return msj = "************SONGS:************* \n" +
+			   msj1 + "\n" +
+			   "************PODCASTS:*************: \n" +
+			   msj2 + "\n";
+	}
+
+	public String addAudioToSpecificUserStandar(String userCc, String playlistName ,String audioName){
+		String msj = "";
+		Audio objectAudio = null;
+		int posStandar = validateStandarExists(userCc); //It´s already validated, I mean, we already know that the user standar does exist.
+		//Buscar el audio por el nombre:
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if((((Song)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+						objectAudio = totalAudios.get(i);
+					}
+				}else if(totalAudios.get(i) instanceof Podcast){
+					if((((Podcast)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+						objectAudio = totalAudios.get(i);
+					}
+				}
+			}
+		}
+		msj = ((UserCostumerStandar)(users.get(posStandar))).addAudioToSpecificPlaylist(playlistName, objectAudio);
+		return msj;
+	}
+
 
 }

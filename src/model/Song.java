@@ -23,6 +23,10 @@ public class Song extends Audio{
 
 	//----------------------------------------------- Getters and Setters ------------------------------------
 
+	public String getName(){
+		return super.name;
+	}
+	
 	public String getAlbum(){
 		return this.album;
 	}
