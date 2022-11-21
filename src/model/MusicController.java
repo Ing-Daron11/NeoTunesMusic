@@ -294,7 +294,12 @@ public class MusicController{
 	}
 
 //-------------------------------- Requeriment 5------------------------------------------
-
+	/**
+	 * This method validates if a playlist belongs to a partiular Standar user.
+	 * @param  userCc       It represents the identification of the user
+	 * @param  playlistName It contains the name of the playlist that is going to be searched in this user.
+	 * @return posPlaylist  It has te position of the playlist if it was found or -1 if it wasn't.
+	 */
 	public int validateIfPlaylistInStandarExists(String userCc, String playlistName){
 		int posPlaylist = -1;
 		int posStandar = validateStandarExists(userCc);
@@ -304,6 +309,12 @@ public class MusicController{
 		return posPlaylist;
 	}
 
+	/**
+	 * This method validates if a playlist belongs to a partiular Premium user.
+	 * @param  userCc       It represents the identification of the user
+	 * @param  playlistName It contains the name of the playlist that is going to be searched in this user.
+	 * @return posPlaylist  It has te position of the playlist if it was found or -1 if it wasn't.
+	 */
 	public int validateIfPlaylistInPremuimExists(String userCc, String playlistName){
 		int posPlaylist = -1;
 		int posPremium = validatePremiumExists(userCc);
@@ -313,6 +324,10 @@ public class MusicController{
 		return posPlaylist;
 	}
 
+	/**
+	 * This method list all the songs and podcasts that the artists and creators have added
+	 * @return msj = It contanis the ordered list
+	 */
 	public String listOfSongsAndPodcasts(){
 		String msj = "";
 		String msj1 = "";
@@ -332,6 +347,13 @@ public class MusicController{
 			   msj2 + "\n";
 	}
 
+	/**
+	 * This method allows to add a song or podcast to a playlist's users.
+	 * @param  userCc       It represents the identification of the user
+	 * @param  playlistName It contains the name of the playlist that is going to be searched in this user.
+	 * @param  audioName    It's the name of the audio that is going to be searched and if it exists and the user with it's playlist, then it would be added.
+	 * @return msj          It contains the message that says it if was added or not.
+	 */
 	public String addAudioToSpecificUserStandar(String userCc, String playlistName ,String audioName){
 		String msj = "";
 		Audio objectAudio = null;
@@ -354,6 +376,13 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allows to add a song or podcast to a playlist's users.
+	 * @param  userCc       It represents the identification of the user
+	 * @param  playlistName It contains the name of the playlist that is going to be searched in this user.
+	 * @param  audioName    It's the name of the audio that is going to be searched and if it exists and the user with it's playlist, then it would be added.
+	 * @return msj          It contains the message that says it if was added or not.
+	 */
 	public String addAudioToSpecificUserPremium(String userCc, String playlistName ,String audioName){
 		String msj = "";
 		Audio objectAudio = null;
@@ -376,6 +405,12 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allows to list the content of a specific playlis of a user.
+	 * @param  userCc       It represents the id of the user.
+	 * @param  playlistName It contains the name of the playlist that is going to searched.
+	 * @return msj 			It contains the list of the audios of the playlist of that user.            
+	 */
 	public String listAudiosOfASpecificPlaylistStandar(String userCc, String playlistName){
 		String msj = "";
 		int posStandar = validateStandarExists(userCc);
@@ -385,6 +420,13 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allows to remove a specific audio from a specific user's playlist.
+	 * @param  userCc       It represents the id of the user.
+	 * @param  playlistName It contains the name of the playlist that is going to searched.
+	 * @param  audioName    It's the name of the audio that is going to be searched and if it exists and the user with it's playlist, then it would be deleted.
+	 * @return msj          It contains the massage that says if the audio was deleted succesfully.
+	 */
 	public String deleteAudioFromSpecificUserStandar(String userCc, String playlistName, String audioName){
 		String msj = "";
 		int posStandar = validateStandarExists(userCc);
@@ -394,6 +436,12 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allows to list the content of a specific playlis of a user.
+	 * @param  userCc       It represents the id pof the user
+	 * @param  playlistName It contains the name of the playlist that is going to searched.
+	 * @return msj 			It contains the list of the audios of the playlist of that user.            
+	 */
 	public String listAudiosOfASpecificPlaylistPremium(String userCc, String playlistName){
 		String msj = "";
 		int posPremium = validatePremiumExists(userCc);
@@ -403,6 +451,13 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allows to remove a specific audio from a specific user's playlist.
+	 * @param  userCc       It represents the id of the user.
+	 * @param  playlistName It contains the name of the playlist that is going to searched.
+	 * @param  audioName    It's the name of the audio that is going to be searched and if it exists and the user with it's playlist, then it would be deleted.
+	 * @return msj          It contains the massage that says if the audio was deleted succesfully.
+	 */
 	public String deleteAudioFromSpecificUserPremium(String userCc, String playlistName, String audioName){
 		String msj = "";
 		int posPremium = validatePremiumExists(userCc);
@@ -414,6 +469,12 @@ public class MusicController{
 
 //-------------------------------- Requeriment 6------------------------------------------
 
+	/**
+	 * This method allow to print the matrix where the playlist code is formed.
+	 * @param  userCc       It's the id of the User
+	 * @param  playlistName It's the playlist that's going to be searched.
+	 * @return msj 			It contains the marix well organized.
+	 */
 	public String showMatrizByStandar(String userCc, String playlistName){
 		String msj = "";
 		int posStandar = validateStandarExists(userCc);
@@ -423,6 +484,12 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allow to print the matrix where the playlist code is formed.
+	 * @param  userCc       It's the id of the User
+	 * @param  playlistName It's the playlist that's going to be searched.
+	 * @return msj 			It contains the marix well organized.
+	 */
 	public String showMatrizByPremium(String userCc, String playlistName){
 		String msj = "";
 		int posPremium = validatePremiumExists(userCc);
@@ -434,6 +501,10 @@ public class MusicController{
 
 //-------------------------------- Requeriment 7------------------------------------------
 
+	/**
+	 * This method allows to List all the audio from the system
+	 * @return msj It contains the list well organized.
+	 */
 	public String listAudiosFromSystem(){
 		String msj = "";
 		String msj1 = "";
@@ -453,6 +524,11 @@ public class MusicController{
 			   msj2 + "\n";
 	}
 
+	/**
+	 * This method allows to simulate the play of an audio and include adds
+	 * @param  audioName It's the audioName that is going to be played
+	 * @return msj  	 It contains the adds and the song being played.
+	 */	
 	public String playAudioForStandar(String audioName){
 		String msj = "The audio" + audioName + "wasn't found";
 		int counter = 0;
@@ -481,6 +557,11 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allows to simulate the play of an audio
+	 * @param  audioName It's the audioName that is going to be played
+	 * @return msj  	 It contains the song being played.
+	 */	
 	public String playAudioForPremium(String audioName){
 		String msj = "The audio" + audioName + "wasn't found";
 		boolean isFound = false;
@@ -503,6 +584,10 @@ public class MusicController{
 		return msj;
 	}
 
+	/**
+	 * This method allows to play ramdomly an add.
+	 * @return msj = It contains the adds. 
+	 */
 	public String playAdd(){
 		Random aleatorio = new Random();
 		String msj = "";
@@ -519,6 +604,10 @@ public class MusicController{
 
 //-------------------------------- Requeriment 8------------------------------------------
 
+	/**
+	 * This method allows to list only the song in all the system.
+	 * @return msj = It contains the list of the songs from the system
+	 */
 	public String listSongsFromSystem(){
 		String msj = "";
 		String msj1 = "";
@@ -533,6 +622,11 @@ public class MusicController{
 			   msj1 + "\n";
 	}
 
+	/**
+	 * This method allows to buy a song from the system
+	 * @param  songName It´s the song that is going to bought.
+	 * @return msj = It contais the information of the purchase.
+	 */
 	public String buySong(String songName){
 		String msj = "The song '" + songName + "' wasn't found";
 		boolean isFound = false;
@@ -549,5 +643,8 @@ public class MusicController{
 		}
 		return msj;
 	}
+
+//-------------------------------- Requeriment 9------------------------------------------
+
 
 }

@@ -40,6 +40,11 @@ public class UserCostumerStandar extends UserCostumer{
 		return msj;
 	}
 
+	/**
+	 * This method allows to Search a playlist by its name in a standar user.
+	 * @param  playlistName It's the name of the playlist
+	 * @return posPlaylist = it contains the position in the arraylist of the playlist.
+	 */
 	public int searchPlaylistByNameStandar(String playlistName){
 		int posPlaylist = -1;
 		boolean playlistExist = false;
@@ -55,6 +60,12 @@ public class UserCostumerStandar extends UserCostumer{
 		return posPlaylist;
 	}
 
+	/**
+	 * This method allows to add any kind of audio to the arraylist base on the type of playlist.
+	 * @param  playlistName It's the name of the playlist where is going to be added de audio.
+	 * @param  objectAudio  It contains the audio as a object
+	 * @return msj          It says if it was added or not.
+	 */
 	public String addAudioToSpecificPlaylist(String playlistName, Audio objectAudio){
 		String msj = "";
 		int counter = 0;

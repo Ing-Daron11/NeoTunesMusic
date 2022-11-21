@@ -57,7 +57,7 @@ public class Main {
 				"6. Share a playlist\n" +
 				"7. Play a song/podcast\n" +
 				"8. Buy a song\n" +
-				"9. \n" +
+				"9. Generate reports\n" +
 				"0. Exit.\n"; 
 		}
 
@@ -191,7 +191,7 @@ public class Main {
 										}
 									}
 								}else{
-									System.out.println("The artis wasn't found");
+									System.out.println("The artist wasn't found");
 								}
 								break;
 							case 2: //Add podcast
@@ -522,6 +522,45 @@ public class Main {
 						break;
 
 					case 9:
+						System.out.println("Type the letter: \n" +
+										   "a. Show all the total music plays \n" +
+										   "b. Show the genre of songs most listened for a especific user and in general \n" +
+										   "c. Show the category of podcasts most listened for a especific user and in general \n" +
+										   "d. Show top 5 artists and top 5 creators and their info. \n" +
+										   "e. Show top 10 Songs and top 10 podcasts and its info. \n" +
+										   "f. Show the total sold songs and total price from each genre\n" +
+										   "g. Show the amount of copies sold and money collected from the song most sold.\n");
+						String option3 = input.next();
+						switch(option3){
+							case "a" :
+								
+								break;
+
+							case "b":
+
+								break;
+
+							case "c":
+
+								break;
+
+							case "d":
+
+								break;
+
+							case "e":
+
+								break;
+
+							case "f":
+
+								break;
+
+							case "g":
+
+								break;
+						}
+
 
 						break;
 
