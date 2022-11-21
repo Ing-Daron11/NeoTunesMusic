@@ -34,9 +34,9 @@ public class UserProductorArtist extends UserProductor{
 		return msj;
 	}
 
-    public String getCc(){
-      return super.cc;
-    }
+  public String getCc(){
+  	return super.cc;
+  }
   
 
 	

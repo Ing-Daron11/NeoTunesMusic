@@ -68,6 +68,7 @@ public class Main {
 			int numPrueba = 0;
 			int option2 = 0;
 			int playListType = 0;
+			int userAnswer = 0;
 				switch(option){
 					case 1: //Add artist/creator
 						System.out.print("selct an option:  \n" +
@@ -304,7 +305,7 @@ public class Main {
 									input.next();
 									System.out.println("Enter a valid integer number ");
 								}
-								int userAnswer = input.nextInt();
+								userAnswer = input.nextInt();
 								if(userAnswer == 1){ //standar
 									sw = false;
 									System.out.print("Type the id of the user: ");
@@ -329,16 +330,16 @@ public class Main {
 									userCc = input.next();
 									System.out.print("Type the name of the playlist: ");
 									playListName = input.next();
-									int playlistExist = controller.validateIfPlaylistInStandarExists(userCc, playListName);
+									int playlistExist = controller.validateIfPlaylistInPremuimExists(userCc, playListName);
 									if (playlistExist != -1){ //It means that the playlist exist.
 										System.out.println("Type the name of the podcast or song that you want to add: ");
 										msj = controller.listOfSongsAndPodcasts();
 										System.out.println(msj);
 										String audioName = input.next();
-										msj = controller.addAudioToSpecificUserStandar(userCc, playListName, audioName);
+										msj = controller.addAudioToSpecificUserPremium(userCc, playListName, audioName);
 										System.out.println(msj);
 									}else{
-										System.out.println("The satndar user or the playlist in this standar user does not exist.");
+										System.out.println("The premium user or the playlist in this Premium user does not exist.");
 									}
 
 								}else{
@@ -347,6 +348,51 @@ public class Main {
 							}
 
 						}else if(numPrueba == 2){ //Eliminate song/podcast
+							while(sw){
+								System.out.print("Type the type of user who is going to delete a song or a podcast: \n" +
+												 "1. Standar \n" +
+												 "2. Premium \n");
+								while (!input.hasNextInt()){
+									input.next();
+									System.out.println("Enter a valid integer number ");
+								}
+								userAnswer = input.nextInt();
+								if(userAnswer == 1){
+									sw = false;
+									System.out.print("Type the id of the user: ");
+									userCc = input.next();
+									System.out.print("Type the name of the playlist: ");
+									playListName = input.next();
+									int playlistExist = controller.validateIfPlaylistInStandarExists(userCc, playListName);
+									if(playlistExist != -1){
+										msj = controller.listAudiosOfASpecificPlaylistStandar(userCc, playListName);
+										System.out.println(msj);
+										String audioName = input.next();
+										msj = controller.deleteAudioFromSpecificUserStandar(userCc, playListName, audioName);
+										System.out.println(msj);
+									}else{
+										System.out.println("The User or the Playlist wasn't found.");
+									}
+								}else if (userAnswer == 2){
+									sw = false;
+									System.out.print("Type the id of the user: ");
+									userCc = input.next();
+									System.out.print("Type the name of the playlist: ");
+									playListName = input.next();
+									int playlistExist = controller.validateIfPlaylistInPremuimExists(userCc, playListName);
+									if(playlistExist != -1){
+										msj = controller.listAudiosOfASpecificPlaylistPremium(userCc, playListName);
+										System.out.println(msj);
+										String audioName = input.next();
+										msj = controller.deleteAudioFromSpecificUserPremium(userCc, playListName, audioName);
+										System.out.println(msj);
+									}else{
+										System.out.println("The User or the Playlist wasn't found.");
+									}
+								}else{
+									System.out.println("Invalid option");
+								}
+							}
 
 						}else{
 							System.out.println("Invalid option");

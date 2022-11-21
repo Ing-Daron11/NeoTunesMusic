@@ -36,7 +36,7 @@ public class UserCostumerStandar extends UserCostumer{
 			}else {
 				msj = "The playlist wasn't added due to error. Sorry";
 			}
-		}
+		} 
 		return msj;
 	}
 
@@ -57,6 +57,7 @@ public class UserCostumerStandar extends UserCostumer{
 
 	public String addAudioToSpecificPlaylist(String playlistName, Audio objectAudio){
 		String msj = "";
+		int counter = 0;
 		int posPlaylist = searchPlaylistByNameStandar(playlistName);
 		int typeOfPlaylist = (playlist.get(posPlaylist)).getTypeOption();
 		if(typeOfPlaylist == 1){
@@ -64,6 +65,8 @@ public class UserCostumerStandar extends UserCostumer{
 			if(getCounterOfSongs() < SIZE_OF_SONGS){
 				int posSong = (playlist.get(posPlaylist)).addSongToPlaylist(objectAudio);
 				if(posSong != -1){
+					counter = 1;
+					setCounterOfSongs(counter);
 					msj = "The song was succesfully added";
 				}else{
 					msj = "This playlist is only for songs. Verify if the song exists or select a real song";
@@ -85,6 +88,8 @@ public class UserCostumerStandar extends UserCostumer{
 			}else{
 				msj = "Maximun capacity reached";
 				if(getCounterOfSongs()< SIZE_OF_SONGS){
+					counter = 1;
+					setCounterOfSongs(counter);
 					posAny = (playlist.get(posPlaylist)).addSongToPlaylist(objectAudio);
 					msj = "The Song was succesfully added";
 				}
@@ -95,6 +100,21 @@ public class UserCostumerStandar extends UserCostumer{
 		return msj;
 	}
 	
+	public String listAudiosOfASpecificPlaylist(String playlistName){///
+		int posPlaylist = searchPlaylistByNameStandar(playlistName);
+		String msj = "";
+		if(posPlaylist != -1){
+			msj = (((Playlist)(playlist.get(posPlaylist))).listAudios());
+		}
+		return msj;
+	}
+
+	public String deleteAudioStandar(String playlistName, String audioName){
+		String msj = "";
+		int posPlaylist = searchPlaylistByNameStandar(playlistName);
+		msj = (playlist.get(posPlaylist)).deleteAudio(audioName);
+		return msj;
+	}
 
 
 //----------------------------------------------- Getters and Setters ------------------------------------

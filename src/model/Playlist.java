@@ -77,9 +77,9 @@ public class Playlist{
                 autoCode += "" + matrixFilled[0][j];
             }
     	}else if(getTypeOption()  == 3){ 
-    		for (int i = 0; i <ROWS -1; i--){
-                for(int j = 0; j <COLUMNS -1; j--){
-                    if( ((i+j)%2)!=0 && ((i+j)>1) ){
+    		for (int i = ROWS-1; i <=0 ; i--){
+                for(int j = COLUMNS-1; j <= 0; j--){
+                    if( ((i+j)%2)!=0 && ((i+j)>1)){
                         autoCode += "" + matrixFilled[i][j];
                     }
                 }
@@ -104,6 +104,44 @@ public class Playlist{
             posPodcast = 1; //It means that it was added
         }
         return posPodcast;
+    }
+
+    public String listAudios(){
+        String msj = "";
+        String msj1 = "";
+        String msj2 = "";
+        for(int i = 0; i < audios.size(); i++){
+            if(audios.get(i) instanceof Song){
+                msj1 += (((Song)(audios.get(i))).getName()) + " \n";
+            }else if( audios.get(i) instanceof Podcast){
+                msj2 += (((Podcast)(audios.get(i))).getName()) + " \n";
+            }
+        }
+        return msj = "************SONGS:************* \n" +
+               msj1 + "\n" +
+               "************PODCASTS:************* \n" +
+               msj2 + "\n";
+    }
+
+    public String deleteAudio(String audioName){
+        String msj = "The audio wasn't found";
+        boolean isFound = false;
+        for(int i = 0; i < audios.size() && !isFound; i++){
+            if(audios.get(i) instanceof Song ){
+                if((((Song)(audios.get(i))).getName()).equalsIgnoreCase(audioName)){
+                    isFound = true;
+                    audios.remove(i);
+                    msj = "The Song '" + audioName + "' was succesfully eliminated";
+                }
+            }else if(audios.get(i) instanceof Podcast){
+                if((((Podcast)(audios.get(i))).getName()).equalsIgnoreCase(audioName)){
+                    isFound = true;
+                    audios.remove(i);
+                    msj = "The Podcast '" + audioName + "' was succesfully eliminated";
+                }
+            }
+        }
+        return msj;
     }
 
 //------------------------------- Getters and Setters ----------------------

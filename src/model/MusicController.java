@@ -305,9 +305,9 @@ public class MusicController{
 
 	public int validateIfPlaylistInPremuimExists(String userCc, String playlistName){
 		int posPlaylist = -1;
-		int posStandar = validatePremiumExists(userCc);
-		if(posStandar != -1){
-			posPlaylist = ( (UserCostumerPremiun)(users.get(posStandar))).searchPlaylistByNameStandar(playlistName);
+		int posPremium = validatePremiumExists(userCc);
+		if(posPremium != -1){
+			posPlaylist = ( (UserCostumerPremiun)(users.get(posPremium))).searchPlaylistByNamePremium(playlistName);
 		}
 		return posPlaylist;
 	}
@@ -327,7 +327,7 @@ public class MusicController{
 		}
 		return msj = "************SONGS:************* \n" +
 			   msj1 + "\n" +
-			   "************PODCASTS:*************: \n" +
+			   "************PODCASTS:************* \n" +
 			   msj2 + "\n";
 	}
 
@@ -353,5 +353,62 @@ public class MusicController{
 		return msj;
 	}
 
+	public String addAudioToSpecificUserPremium(String userCc, String playlistName ,String audioName){
+		String msj = "";
+		Audio objectAudio = null;
+		int posPremium = validatePremiumExists(userCc); //It´s already validated, I mean, we already know that the user Premium does exist.
+		//Buscar el audio por el nombre:
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if((((Song)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+						objectAudio = totalAudios.get(i);
+					}
+				}else if(totalAudios.get(i) instanceof Podcast){
+					if((((Podcast)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+						objectAudio = totalAudios.get(i);
+					}
+				}
+			}
+		}
+		msj = ((UserCostumerPremiun)(users.get(posPremium))).addAudioToSpecificPlaylist(playlistName, objectAudio);
+		return msj;
+	}
+
+	public String listAudiosOfASpecificPlaylistStandar(String userCc, String playlistName){
+		String msj = "";
+		int posStandar = validateStandarExists(userCc);
+		if(posStandar != -1){
+			msj = (((UserCostumerStandar)(users.get(posStandar))).listAudiosOfASpecificPlaylist(playlistName));
+		}
+		return msj;
+	}
+
+	public String deleteAudioFromSpecificUserStandar(String userCc, String playlistName, String audioName){
+		String msj = "";
+		int posStandar = validateStandarExists(userCc);
+		if(posStandar != -1){
+			msj = (((UserCostumerStandar)(users.get(posStandar))).deleteAudioStandar(playlistName, audioName));
+		}
+		return msj;
+	}
+
+	public String listAudiosOfASpecificPlaylistPremium(String userCc, String playlistName){
+		String msj = "";
+		int posPremium = validatePremiumExists(userCc);
+		if(posPremium != -1){
+			msj = (((UserCostumerPremiun)(users.get(posPremium))).listAudiosOfASpecificPlaylist(playlistName));
+		}
+		return msj;
+	}
+
+	public String deleteAudioFromSpecificUserPremium(String userCc, String playlistName, String audioName){
+		String msj = "";
+		int posPremium = validatePremiumExists(userCc);
+		if(posPremium != -1){
+			msj = (((UserCostumerPremiun)(users.get(posPremium))).deleteAudioPremium(playlistName, audioName));
+		}
+		return msj;
+	}
 
 }
