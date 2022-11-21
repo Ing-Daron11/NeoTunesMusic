@@ -14,6 +14,7 @@ public class Playlist{
     public static final int COLUMNS = 6; 
 
     private int[][] matrix;
+    private int[][] matrixFilled;
 
     /**
     * Constructor
@@ -21,6 +22,7 @@ public class Playlist{
     public Playlist(String name, int type){
     	this.name = name;
         matrix = new int[ROWS][COLUMNS];
+        filltMatrix();
     	audios = new ArrayList<Audio>(10);
         this.typeOption = type;
         this.code = generateCode();
@@ -30,14 +32,14 @@ public class Playlist{
     /**
      * This method fill all the matrix
      */
-    public int[][] filltMatrix(){
+    public void filltMatrix(){
         Random aleatorio = new Random();
         for(int i = 0; i <= ROWS-1; i++){
             for(int j = 0; j <= COLUMNS-1; j++){
                 this.matrix[i][j] = (aleatorio.nextInt(10-0)+0);
             }
         }
-        return matrix;
+        this.matrixFilled = matrix;
     }
 
     /**
@@ -45,40 +47,39 @@ public class Playlist{
      * @param  type It's the type of playlist selected
      * @return      it's the code already done
      */
-    public String generateCode(){ //No genera bien el código
+    public String generateCode(){
         String autoCode = "";
-        int[][] matrixFilled = filltMatrix();
     	if(getTypeOption() == 1){ //N
-    		for(int i = ROWS-1; i<= 0; i--){
-               autoCode += "" + matrixFilled[i][0];
+    		for(int i = ROWS-1; i>= 0; i--){
+                autoCode += "" + matrixFilled[i][COLUMNS-6];
             }
-            for (int i = 0; i <ROWS -1; i++){
-                for(int j = 0; j <COLUMNS -1; j++){
+            for (int i = 1; i <ROWS; i++){
+                for(int j = 1; j <COLUMNS; j++){
                     if(i==j){
                         autoCode += "" + matrixFilled[i][j];
                     }
                 }
             }
-            for(int i = ROWS-1; i <=0; i--){
-                autoCode += "" + matrixFilled[i][5];
+            for(int i = ROWS-2; i >=0; i--){
+                autoCode += "" + matrixFilled[i][COLUMNS-1];
             }
 
     	}else if(getTypeOption()  == 2){ //T
     		for(int j = 0; j<=2; j++){
                 autoCode += "" + matrixFilled[0][j]; 
             }
-            for (int i = 0; i < ROWS; i++){
+            for (int i = 1; i < ROWS; i++){
                 autoCode += "" + matrixFilled[i][2]; 
             }
-            for(int i = ROWS-1; i <=0; i--){
+            for(int i = ROWS-1; i >=0; i--){
                 autoCode += "" + matrixFilled[i][3];
             }
-            for(int j = 0; j < COLUMNS; j++){
+            for(int j = 4; j < COLUMNS; j++){
                 autoCode += "" + matrixFilled[0][j];
             }
-    	}else if(getTypeOption()  == 3){ 
-    		for (int i = ROWS-1; i <=0 ; i--){
-                for(int j = COLUMNS-1; j <= 0; j--){
+    	}else if(getTypeOption()  == 3){ //odd
+    		for (int i = ROWS-1; i >=0 ; i--){
+                for(int j = COLUMNS-1; j >= 0; j--){
                     if( ((i+j)%2)!=0 && ((i+j)>1)){
                         autoCode += "" + matrixFilled[i][j];
                     }
@@ -142,6 +143,19 @@ public class Playlist{
             }
         }
         return msj;
+    }
+
+    public String showMatriz(){
+        String msj = "";
+        for(int i = 0; i < ROWS; i++){
+            for(int j = 0; j < COLUMNS; j++){
+                msj += "|" + this.matrixFilled[i][j];
+                if(j==5){ //If it gets to the final column...
+                    msj += "|\n";                    
+                }
+            }
+        }
+        return msj; 
     }
 
 //------------------------------- Getters and Setters ----------------------

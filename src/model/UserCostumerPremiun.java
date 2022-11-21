@@ -39,7 +39,7 @@ public class UserCostumerPremiun extends UserCostumer{
 	public String addPlaylist(Playlist objectPlayList){
 		String msj = "";
 		if(playlist.add(objectPlayList)){
-			msj = "The playlist was succesfully aded for the standar user \n" +
+			msj = "The playlist was succesfully aded for the Premium user \n" +
 					  "code: " + objectPlayList.getCode() + "\n"+
 					  "name: " + objectPlayList.getName();
 		}else {
@@ -100,6 +100,17 @@ public class UserCostumerPremiun extends UserCostumer{
 		return msj;
 	}
 
+	public String showMatrizPremium(String playlistName){///
+		int posPlaylist = searchPlaylistByNamePremium(playlistName);
+		String msj = "";
+		if(posPlaylist != -1){
+			if(((Playlist)(playlist.get(posPlaylist))).getName().equalsIgnoreCase(playlistName)){
+				msj = ((Playlist)(playlist.get(posPlaylist))).showMatriz() + "\n" +
+							"Code: " + ((Playlist)(playlist.get(posPlaylist))).getCode();
+			}
+		}
+		return msj;
+	}
 
 
 }

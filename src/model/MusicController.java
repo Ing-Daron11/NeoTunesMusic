@@ -411,4 +411,24 @@ public class MusicController{
 		return msj;
 	}
 
+//-------------------------------- Requeriment 6------------------------------------------
+
+	public String showMatrizByStandar(String userCc, String playlistName){
+		String msj = "";
+		int posStandar = validateStandarExists(userCc);
+		if(posStandar != -1){
+			msj = ((UserCostumerStandar)(users.get(posStandar))).showMatrizStandar(playlistName);
+		}
+		return msj;
+	}
+
+	public String showMatrizByPremium(String userCc, String playlistName){
+		String msj = "";
+		int posPremium = validatePremiumExists(userCc);
+		if(posPremium != -1){
+			msj = ((UserCostumerPremiun)(users.get(posPremium))).showMatrizPremium(playlistName);
+		}
+		return msj;
+	}
+
 }

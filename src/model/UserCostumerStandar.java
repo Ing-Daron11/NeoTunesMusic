@@ -116,6 +116,17 @@ public class UserCostumerStandar extends UserCostumer{
 		return msj;
 	}
 
+	public String showMatrizStandar(String playlistName){///
+		int posPlaylist = searchPlaylistByNameStandar(playlistName);
+		String msj = "";
+		if(posPlaylist != -1){
+			if(((Playlist)(playlist.get(posPlaylist))).getName().equalsIgnoreCase(playlistName)){
+				msj = ((Playlist)(playlist.get(posPlaylist))).showMatriz() + "\n" +
+							"Code: " + ((Playlist)(playlist.get(posPlaylist))).getCode();
+			}
+		}
+		return msj;
+	}
 
 //----------------------------------------------- Getters and Setters ------------------------------------
 

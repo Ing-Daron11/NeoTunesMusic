@@ -54,8 +54,10 @@ public class Main {
 				"3. Add a song/podcast\n" +
 				"4. Create a playlist\n" +
 				"5. Edit playlist\n" +
-				"6. \n" +
+				"6. Share a playlist\n" +
 				"7. \n" +
+				"8. \n" +
+				"9. \n" +
 				"0. Exit.\n"; 
 		}
 
@@ -397,12 +399,48 @@ public class Main {
 						}else{
 							System.out.println("Invalid option");
 						}
-						
-						
 						break;
 
 					case 6:
-
+						while(sw){
+							System.out.print("Type the user who's gonna share the playlist: \n" +
+											 "1. Standar \n" +
+											 "2. Premium \n");
+							while (!input.hasNextInt()){
+								input.next();
+								System.out.println("Enter a valid integer number ");
+							}
+							userAnswer = input.nextInt();
+							if(userAnswer == 1){
+								sw = false;
+								System.out.print("Type the id of the user: ");
+								userCc = input.next();
+								System.out.print("Type the name of the playlist: ");
+								playListName = input.next();
+								int playlistExist = controller.validateIfPlaylistInStandarExists(userCc, playListName);
+								if(playlistExist != -1){
+									msj = controller.showMatrizByStandar(userCc,playListName);
+									System.out.println(msj);
+								}else{
+									System.out.print("The User or the Playlist wasn't found");
+								}
+							}else if(userAnswer == 2){
+								sw = false;
+								System.out.print("Type the id of the user: ");
+								userCc = input.next();
+								System.out.print("Type the name of the playlist: ");
+								playListName = input.next();
+								int playlistExist = controller.validateIfPlaylistInPremuimExists(userCc, playListName);
+								if(playlistExist != -1){
+									msj = controller.showMatrizByPremium(userCc,playListName);
+									System.out.println(msj);
+								}else{
+									System.out.print("The User or the Playlist wasn't found");
+								}
+							}else{
+								System.out.println("Invalid option");
+							}
+						}
 						break;
 
 					case 7:
@@ -424,18 +462,16 @@ public class Main {
 		}
 
 	public int validateIntegerOption(){
-			int option = 0; 
-
-			if(input.hasNextInt()){
-				option = input.nextInt(); 
-			}
-			else{
-				// clear input. 
-				input.nextLine(); 
-				option = -1; 
-			}
-
-			return option; 
+		int option = 0; 
+		if(input.hasNextInt()){
+			option = input.nextInt(); 
 		}
+		else{
+			// clear input. 
+			input.nextLine(); 
+			option = -1; 
+		}
+		return option; 
+	}
 
 }
