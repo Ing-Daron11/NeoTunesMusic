@@ -55,7 +55,7 @@ public class Main {
 				"4. Create a playlist\n" +
 				"5. Edit playlist\n" +
 				"6. Share a playlist\n" +
-				"7. \n" +
+				"7. Play a song/podcast\n" +
 				"8. \n" +
 				"9. \n" +
 				"0. Exit.\n"; 
@@ -444,6 +444,51 @@ public class Main {
 						break;
 
 					case 7:
+						while(sw){
+							System.out.print("Type the user who's gonna play the audio: \n" +
+											 "1. Standar \n" +
+											 "2. Premium \n");
+							while (!input.hasNextInt()){
+								input.next();
+								System.out.println("Enter a valid integer number ");
+							}
+							userAnswer = input.nextInt();
+							if(userAnswer == 1){
+								sw = false;
+								System.out.print("Type the id of the Standar user: ");
+								userCc = input.next();
+								int standarExists = controller.validateStandarExists(userCc);
+								if(standarExists != -1){
+									System.out.print("type the name of the audio you want to play: ");
+									msj = controller.listAudiosFromSystem();
+									System.out.println(msj);
+									String audioName = input.next();
+									msj = controller.playAudioForStandar(audioName);
+									System.out.println(msj);
+								}else{
+									System.out.println("The user wasn't found");
+								}
+								
+							}else if(userAnswer == 2){
+								sw = false;
+								System.out.print("Type the id of the Premium user: ");
+								userCc = input.next();
+								int premiumExists = controller.validatePremiumExists(userCc);
+								if(premiumExists != -1){
+									System.out.print("type the name of the audio you want to play: ");
+									msj = controller.listAudiosFromSystem();
+									System.out.println(msj);
+									String audioName = input.next();
+									msj = controller.playAudioForPremium(audioName);
+									System.out.println(msj);
+								}else{
+									System.out.println("The User wasn't found");
+								}
+							}else{
+								System.out.println("Invalid option");
+							}
+						}
+
 
 						break;
 

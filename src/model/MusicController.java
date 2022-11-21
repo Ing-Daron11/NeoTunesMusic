@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MusicController{
 
@@ -430,5 +431,94 @@ public class MusicController{
 		}
 		return msj;
 	}
+
+//-------------------------------- Requeriment 7------------------------------------------
+
+	public String listAudiosFromSystem(){
+		String msj = "";
+		String msj1 = "";
+		String msj2 = "";
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					msj1 += ((Song)(totalAudios.get(i))).getName() + "\n";
+				}else if(totalAudios.get(i) instanceof Podcast){
+					msj2 += ((Podcast)(totalAudios.get(i))).getName() + "\n";
+				}
+			}
+		}
+		return msj = "\n ************SONGS:************* \n" +
+			   msj1 + "\n" +
+			   "************PODCASTS:************* \n" +
+			   msj2 + "\n";
+	}
+
+	public String playAudioForStandar(String audioName){
+		String msj = "The audio" + audioName + "wasn't found";
+		int counter = 0;
+		boolean isFound = false;
+		for (int i = 0; i < totalAudios.size() && !isFound; i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
+						isFound = true;
+						msj = "Playing '" + audioName + "'...";
+						counter = 1;
+						((Song)(totalAudios.get(i))).setReproductions(counter);
+						if(((((Song)(totalAudios.get(i))).getReproductions())%2)==0){
+							msj += "\n" + playAdd();
+						}
+					}
+				}else if(totalAudios.get(i) instanceof Podcast){
+					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
+						isFound = true;
+						msj = playAdd() + "\n" +
+						"Playing '" + audioName + "'...";
+					}
+				}
+			}
+		}
+		return msj;
+	}
+
+	public String playAudioForPremium(String audioName){
+		String msj = "The audio" + audioName + "wasn't found";
+		boolean isFound = false;
+		for (int i = 0; i < totalAudios.size() && !isFound; i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
+						isFound = true;
+						msj = "Playing '" + audioName + "'...";
+
+					}
+				}else if(totalAudios.get(i) instanceof Podcast){
+					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
+						isFound = true;
+						msj = "Playing '" + audioName + "'...";
+					}
+				}	
+			}
+		}
+		return msj;
+	}
+
+	public String playAdd(){
+		Random aleatorio = new Random();
+		String msj = "";
+		int numRamdom = (aleatorio.nextInt(3-1)+1);
+		if(numRamdom == 1){
+			msj = "Nike - Just Do It.";
+		}else if(numRamdom == 2){
+			msj = "Coca-Cola - Open Happiness.";
+		}else{
+			msj = "M&Ms - Melts in Your Mouth, Not in Your Hands";
+		}
+		return msj;
+	}
+
+//-------------------------------- Requeriment 8------------------------------------------
+
+
 
 }

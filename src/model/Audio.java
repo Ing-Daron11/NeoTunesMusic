@@ -35,7 +35,7 @@ public abstract class Audio{
 	}
 
 	public void setReproductions(int newReproductions){
-		this.reproductions = newReproductions;
+		this.reproductions += newReproductions;
 	}
 
 }
