@@ -56,7 +56,7 @@ public class Main {
 				"5. Edit playlist\n" +
 				"6. Share a playlist\n" +
 				"7. Play a song/podcast\n" +
-				"8. \n" +
+				"8. Buy a song\n" +
 				"9. \n" +
 				"0. Exit.\n"; 
 		}
@@ -493,6 +493,35 @@ public class Main {
 						break;
 
 					case 8:
+						System.out.println("ATENTION! \n" +
+										   "this section is just for supporting an artist. \n" +
+										   "However you can listen music and podcasts without buying anything. \n" +
+										   "Do you want to continue? \n" +
+										   "1. Yes, of course. \n" +
+										   "2. No, I'm fine.");
+						while (!input.hasNextInt()){
+							input.next();
+							System.out.println("Enter a valid integer number ");
+						}
+						userAnswer = input.nextInt();
+						if(userAnswer == 1){
+							System.out.println("Thank you. Type the name of the song you want to buy:");
+							msj = controller.listSongsFromSystem();
+							System.out.println(msj);
+							String songName = input.next();
+							msj = controller.buySong(songName);
+							System.out.println(msj);
+						}else if(userAnswer == 2){
+							System.out.println("Stingy");
+							break;
+
+						}else{
+							System.out.println("Invalid option");
+						}
+
+						break;
+
+					case 9:
 
 						break;
 

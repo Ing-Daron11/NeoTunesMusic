@@ -519,6 +519,35 @@ public class MusicController{
 
 //-------------------------------- Requeriment 8------------------------------------------
 
+	public String listSongsFromSystem(){
+		String msj = "";
+		String msj1 = "";
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					msj1 += ((Song)(totalAudios.get(i))).getName() + " Price: $" + ((Song)(totalAudios.get(i))).getCost() + "\n";
+				}
+			}
+		}
+		return msj = "\n ************SONGS:************* \n" +
+			   msj1 + "\n";
+	}
 
+	public String buySong(String songName){
+		String msj = "The song '" + songName + "' wasn't found";
+		boolean isFound = false;
+		for(int i = 0; i < totalAudios.size() && !isFound; i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if((totalAudios.get(i)).getName().equalsIgnoreCase(songName)){
+						isFound = true;
+						msj = "Song bought: " + ((Song)(totalAudios.get(i))).getName() + " Price $" + ((Song)(totalAudios.get(i))).getCost() + "\n" + 
+							  "Thanks for your purchase";
+					}
+				}
+			}
+		}
+		return msj;
+	}
 
 }
