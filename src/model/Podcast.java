@@ -16,7 +16,6 @@ public class Podcast extends Audio{
 		this.typePodcast = TypePodcast.values()[optionTypePodcast];
 	}
 
-
 //----------------------------------------------- Getters and Setters ------------------------------------
 
 	public String getName(){
@@ -29,5 +28,9 @@ public class Podcast extends Audio{
 
 	public TypePodcast getTypePodcast(){
 		return this.typePodcast;
+	}
+
+	public int getOptionTypePodcast(){
+		return this.optionTypePodcast;
 	}
 }

@@ -33,6 +33,18 @@ public class UserProductorCreator extends UserProductor{
 		return msj;
 	}
 
+	public int countReproductions(){
+		int totalCounter = 0;
+		for(int i = 0; i < podcasts.size(); i++){
+			if(podcasts.get(i) != null){
+				totalCounter += podcasts.get(i).getReproductions();
+			}
+		}
+		return totalCounter;
+	}
+
+//----------------------------------------------- Getters and Setters ------------------------------------
+
 	 public String getCc(){
       return super.cc;
     }

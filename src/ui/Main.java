@@ -524,8 +524,8 @@ public class Main {
 					case 9:
 						System.out.println("Type the letter: \n" +
 										   "a. Show all the total music plays \n" +
-										   "b. Show the genre of songs most listened for a especific user and in general \n" +
-										   "c. Show the category of podcasts most listened for a especific user and in general \n" +
+										   "b. Show the genre of song most listened in general \n" +
+										   "c. Show the category of podcast most listened in general \n" +
 										   "d. Show top 5 artists and top 5 creators and their info. \n" +
 										   "e. Show top 10 Songs and top 10 podcasts and its info. \n" +
 										   "f. Show the total sold songs and total price from each genre\n" +
@@ -533,30 +533,42 @@ public class Main {
 						String option3 = input.next();
 						switch(option3){
 							case "a" :
-								
+								msj = controller.countPlaytimes();
+								System.out.println(msj);
 								break;
 
 							case "b":
+								msj = controller.genreMostPlayed();
+								System.out.println(msj);
 
 								break;
 
 							case "c":
+								msj = controller.categoryMostPlayed();
+								System.out.println(msj);
 
 								break;
 
 							case "d":
-
+								msj = controller.showTop5ArtistAndCreator();
+								System.out.println(msj);
 								break;
 
 							case "e":
+								msj = controller.showTop10SongsAndPodcasts();
+								System.out.println(msj);
 
 								break;
 
 							case "f":
+								msj = controller.showTotalSoldSong();
+								System.out.println(msj);
 
 								break;
 
 							case "g":
+								msj = controller.showCopiesAndMoneyCollectedFromMostSoldSong();
+								System.out.println(msj);
 
 								break;
 						}

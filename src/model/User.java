@@ -18,7 +18,9 @@ public abstract class User{
 		this.vinculationDate = newVinculationDate;
 	}
 
-	
+	public String getName(){
+		return this.nickname;
+	}
 
 
 

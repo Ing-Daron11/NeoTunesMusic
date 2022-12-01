@@ -12,9 +12,38 @@ public class MusicController{
 	public MusicController(){
 		users = new ArrayList<User>();
 		totalAudios = new ArrayList<Audio>();
-
+		initialize();
+		
 	}
 
+//-----------------------------------Default values----------------------------------
+	public void initialize(){
+		String msj1 = "";
+		String msj2 = "";
+		String msj3 = "";
+		String msj4 = "";
+		String msj5 = "";
+		String msj6 = "";
+		UserProductorArtist newArtist1 = new UserProductorArtist("Dalmata","123","www.dalmata.com");
+		UserProductorArtist newArtist2 = new UserProductorArtist("Daddy_Yanky","456","www.Daddy_Yanky.com");
+		UserProductorArtist newArtist3 = new UserProductorArtist("Eddy_Herrera","789","www.Eddy_Herrera.com");
+		users.add(newArtist1);
+		users.add(newArtist2);
+		users.add(newArtist3);
+		UserProductorCreator newCreator1 = new UserProductorCreator("Petro","135","www.Petro.com");
+		UserProductorCreator newCreator2 = new UserProductorCreator("Jesus","246","www.Jesus.com");
+		UserProductorCreator newCreator3 = new UserProductorCreator("El_Chamo","680","www.El_Chamo.com");
+		users.add(newCreator1);
+		users.add(newCreator2);
+		users.add(newCreator3);
+		msj1 = addSong("123", "Pasarela", "www.youtube/Pasarela.com", 220, "String album", 3000, 0);
+		msj2 = addSong("456", "Bombon", "www.youtube/Bombón.com", 180, "String album", 2000, 1);
+		msj3 = addSong("789", "Tu_vicio", "www.youtube/Tu_vicio.com", 120, "String album", 5000, 3);
+		msj4 = addPodcast("135", "Una_vida_muchas_vidas", "www.Spotify/Una_vida_muchas_vidas.com", 30000 ,"String description", 0);
+		msj5 = addPodcast("246", "Colombia", "www.Spotify/Colombia.com", 30000 ,"String description", 1);
+		msj6 = addPodcast("680", "Warzone2", "www.Spotify/warzone2.com", 15000 ,"String description", 2);
+
+	}
 
 //----------------------------------- Requirement 1 -----------------------------------
 
@@ -332,12 +361,12 @@ public class MusicController{
 		String msj = "";
 		String msj1 = "";
 		String msj2 = "";
-		for(int i = 0; i < users.size(); i++){
-			if(users.get(i) != null){
-				if(users.get(i) instanceof UserProductorArtist){
-					msj1 = ((UserProductorArtist)(users.get(i))).listSongs();
-				}else if(users.get(i) instanceof UserProductorCreator){
-					msj2 = ( (UserProductorCreator)(users.get(i))).listPodcasts();
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					msj1 += ((Song)(totalAudios.get(i))).getName() + "\n";
+				}else if(totalAudios.get(i) instanceof Podcast){
+					msj2 += ((Podcast)(totalAudios.get(i))).getName() + "\n";
 				}
 			}
 		}
@@ -357,22 +386,31 @@ public class MusicController{
 	public String addAudioToSpecificUserStandar(String userCc, String playlistName ,String audioName){
 		String msj = "";
 		Audio objectAudio = null;
+		boolean isFound = false;
 		int posStandar = validateStandarExists(userCc); //It´s already validated, I mean, we already know that the user standar does exist.
 		//Buscar el audio por el nombre:
-		for(int i = 0; i < totalAudios.size(); i++){
+		for(int i = 0; i < totalAudios.size() && !isFound; i++){
 			if(totalAudios.get(i) != null){
 				if(totalAudios.get(i) instanceof Song){
-					if((((Song)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
+						isFound = true;
 						objectAudio = totalAudios.get(i);
+						msj = ((UserCostumerStandar)(users.get(posStandar))).addAudioToSpecificPlaylist(playlistName, objectAudio);
+					}else{
+						msj = "The audio does not exist";
 					}
 				}else if(totalAudios.get(i) instanceof Podcast){
-					if((((Podcast)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
+						isFound = true;
 						objectAudio = totalAudios.get(i);
+						msj = ((UserCostumerStandar)(users.get(posStandar))).addAudioToSpecificPlaylist(playlistName, objectAudio);
+					}else{
+						msj = "The audio does not exist";
 					}
 				}
 			}
 		}
-		msj = ((UserCostumerStandar)(users.get(posStandar))).addAudioToSpecificPlaylist(playlistName, objectAudio);
+		
 		return msj;
 	}
 
@@ -386,22 +424,31 @@ public class MusicController{
 	public String addAudioToSpecificUserPremium(String userCc, String playlistName ,String audioName){
 		String msj = "";
 		Audio objectAudio = null;
+		boolean isFound = false;
 		int posPremium = validatePremiumExists(userCc); //It´s already validated, I mean, we already know that the user Premium does exist.
 		//Buscar el audio por el nombre:
-		for(int i = 0; i < totalAudios.size(); i++){
+		for(int i = 0; i < totalAudios.size() && !isFound; i++){
 			if(totalAudios.get(i) != null){
 				if(totalAudios.get(i) instanceof Song){
 					if((((Song)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+						isFound = true;
 						objectAudio = totalAudios.get(i);
+						msj = ((UserCostumerPremiun)(users.get(posPremium))).addAudioToSpecificPlaylist(playlistName, objectAudio);
+
+					}else{
+						msj = "The audio does not exist";
 					}
 				}else if(totalAudios.get(i) instanceof Podcast){
 					if((((Podcast)(totalAudios.get(i))).getName()).equalsIgnoreCase(audioName)){
+						isFound = true;
 						objectAudio = totalAudios.get(i);
+						msj = ((UserCostumerPremiun)(users.get(posPremium))).addAudioToSpecificPlaylist(playlistName, objectAudio);
+					}else{
+						msj = "The audio does not exist";
 					}
 				}
 			}
 		}
-		msj = ((UserCostumerPremiun)(users.get(posPremium))).addAudioToSpecificPlaylist(playlistName, objectAudio);
 		return msj;
 	}
 
@@ -531,7 +578,7 @@ public class MusicController{
 	 */	
 	public String playAudioForStandar(String audioName){
 		String msj = "The audio" + audioName + "wasn't found";
-		int counter = 0;
+		int counter = 1;
 		boolean isFound = false;
 		for (int i = 0; i < totalAudios.size() && !isFound; i++){
 			if(totalAudios.get(i) != null){
@@ -539,8 +586,8 @@ public class MusicController{
 					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
 						isFound = true;
 						msj = "Playing '" + audioName + "'...";
-						counter = 1;
 						((Song)(totalAudios.get(i))).setReproductions(counter);
+						
 						if(((((Song)(totalAudios.get(i))).getReproductions())%2)==0){
 							msj += "\n" + playAdd();
 						}
@@ -550,6 +597,8 @@ public class MusicController{
 						isFound = true;
 						msj = playAdd() + "\n" +
 						"Playing '" + audioName + "'...";
+						((Podcast)(totalAudios.get(i))).setReproductions(counter);
+
 					}
 				}
 			}
@@ -564,6 +613,7 @@ public class MusicController{
 	 */	
 	public String playAudioForPremium(String audioName){
 		String msj = "The audio" + audioName + "wasn't found";
+		int counter = 1;
 		boolean isFound = false;
 		for (int i = 0; i < totalAudios.size() && !isFound; i++){
 			if(totalAudios.get(i) != null){
@@ -571,12 +621,14 @@ public class MusicController{
 					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
 						isFound = true;
 						msj = "Playing '" + audioName + "'...";
-
+						((Song)(totalAudios.get(i))).setReproductions(counter);
 					}
 				}else if(totalAudios.get(i) instanceof Podcast){
 					if((totalAudios.get(i)).getName().equalsIgnoreCase(audioName)){
 						isFound = true;
 						msj = "Playing '" + audioName + "'...";
+						((Podcast)(totalAudios.get(i))).setReproductions(counter);
+
 					}
 				}	
 			}
@@ -629,6 +681,7 @@ public class MusicController{
 	 */
 	public String buySong(String songName){
 		String msj = "The song '" + songName + "' wasn't found";
+		int counter = 1;
 		boolean isFound = false;
 		for(int i = 0; i < totalAudios.size() && !isFound; i++){
 			if(totalAudios.get(i) != null){
@@ -637,6 +690,7 @@ public class MusicController{
 						isFound = true;
 						msj = "Song bought: " + ((Song)(totalAudios.get(i))).getName() + " Price $" + ((Song)(totalAudios.get(i))).getCost() + "\n" + 
 							  "Thanks for your purchase";
+						((Song)(totalAudios.get(i))).setSells(counter);
 					}
 				}
 			}
@@ -645,6 +699,557 @@ public class MusicController{
 	}
 
 //-------------------------------- Requeriment 9------------------------------------------
+
+	/**
+	 * This method allows to count how many times all songa have been played
+	 * @return msj: it contains the massage
+	 */
+	public String countPlaytimes(){
+		String msj = "";
+		int counterPlayTimes = 0;
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					counterPlayTimes +=((Song)(totalAudios.get(i))).getReproductions();
+				}
+			}
+		}
+		msj = "The total reproductions are: " + counterPlayTimes;
+		return msj;
+	}
+
+	/**
+	 * This methos allows to get the reproductions of the genre most listened
+	 * @return msj = It contains the massage
+	 */
+	public String genreMostPlayed(){
+		String msj = "";
+		String genreName = "";
+		int maxCounter = 0;
+		int type = -1;
+		int pos = -1;
+
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if(((Song)(totalAudios.get(i))).getReproductions() > maxCounter){
+						maxCounter = ((Song)(totalAudios.get(i))).getReproductions();
+						pos = i;
+					}
+				}
+			}
+		}
+
+		if(pos != -1){
+			type = ((Song)(totalAudios.get(pos))).getOptionTypeSong();
+				if(type ==0){
+					genreName = "Rock";
+				}else if(type == 1){
+					genreName = "Pop";
+				}else if(type == 2){
+					genreName = "Trap";
+				}else{
+					genreName = "House";
+				}
+				msj = "The genre more listened is: " + genreName + " Reproductions: " + maxCounter;
+		}else{
+			msj = "There are no Songs played yet"; 
+		}
+		
+		return msj;	
+	}
+
+	/**
+	 * This methos allows to get the reproductions of the Category most listened
+	 * @return msj = It contains the massage
+	 */
+	public String categoryMostPlayed(){
+		String msj = "";
+		String categoryName = "";
+		int maxCounter = 0;
+		int type = -1;
+		int pos = -1;
+
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Podcast){
+					if(((Podcast)(totalAudios.get(i))).getReproductions() > maxCounter){
+						maxCounter = ((Podcast)(totalAudios.get(i))).getReproductions();
+						pos = i;
+					}
+				}
+			}
+		}
+
+		if(pos != -1){
+			type = ((Podcast)(totalAudios.get(pos))).getOptionTypePodcast();
+				if(type ==0){
+					categoryName = "POLITICS";
+				}else if(type == 1){
+					categoryName = "ENTERTAINMENT";
+				}else if(type == 2){
+					categoryName = "VIDEOGAMES";
+				}else{
+					categoryName = "FASHION";
+				}
+				msj = "The genre more listened is: " + categoryName + " Reproductions: " + maxCounter;
+		}else{
+			msj = "There are no Podcast played yet"; 
+		}
+		
+		return msj;	
+	}
+
+
+	/**
+	 * This method allows to list the  top 5 artists and top 5 creators 
+	 * based on the amount of reproductions of their audios and show their info.
+	 * @return msj = It contains the massage
+	 */
+	public String showTop5ArtistAndCreator(){
+		String msj1 = "";
+		String msj2 = "";
+		//reproductions
+		int varAxuliar1 = 0;
+		int varAxuliar2 = 0;
+		int varAxuliar3 = 0;
+		int varAxuliar4 = 0;
+		int varAxuliar5 = 0;
+		//names
+		String top1 = "";
+		String top2 = "";
+		String top3 = "";
+		String top4 = "";
+		String top5 = "";
+
+		//Artists
+		for(int i = 0; i < users.size(); i++){
+			if(users.get(i) != null){
+				if(users.get(i) instanceof UserProductorArtist){
+					if(((UserProductorArtist)(users.get(i))).countReproductions() > varAxuliar1){
+						varAxuliar1 = ((UserProductorArtist)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = top1;
+						top1 = ((UserProductorArtist)(users.get(i))).getName() + " Reproductions: " + varAxuliar1;
+
+					}else if(((UserProductorArtist)(users.get(i))).countReproductions() > varAxuliar2){
+						varAxuliar2 = ((UserProductorArtist)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = ((UserProductorArtist)(users.get(i))).getName() + " Reproductions: " + varAxuliar2;
+
+					}else if(((UserProductorArtist)(users.get(i))).countReproductions() > varAxuliar3){
+						varAxuliar3 = ((UserProductorArtist)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = top3;
+						top3 = ((UserProductorArtist)(users.get(i))).getName() + " Reproductions: " + varAxuliar3;
+
+					}else if(((UserProductorArtist)(users.get(i))).countReproductions() > varAxuliar4){
+						varAxuliar4 = ((UserProductorArtist)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = ((UserProductorArtist)(users.get(i))).getName() + " Reproductions: " + varAxuliar4;
+
+					}else if(((UserProductorArtist)(users.get(i))).countReproductions() > varAxuliar5){
+						varAxuliar5 = ((UserProductorArtist)(users.get(i))).countReproductions();
+						top5 = ((UserProductorArtist)(users.get(i))).getName() + " Reproductions: " + varAxuliar5;
+					}
+				}
+			}
+		}
+		msj1 = top1 + "\n"+
+			  top2 + "\n"+
+			  top3 + "\n"+
+			  top4 + "\n"+
+			  top5 + "\n";
+
+		top1 = "";
+		top2 = "";
+		top3 = "";
+		top4 = "";
+		top5 = "";
+		//Creators
+		for(int i = 0; i < users.size(); i++){
+			if(users.get(i) != null){
+				if(users.get(i) instanceof UserProductorCreator){
+					if(((UserProductorCreator)(users.get(i))).countReproductions() > varAxuliar1){
+						varAxuliar1 = ((UserProductorCreator)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = top1;
+						top1 = ((UserProductorCreator)(users.get(i))).getName() + " Reproductions: " + varAxuliar1;
+
+					}else if(((UserProductorCreator)(users.get(i))).countReproductions() > varAxuliar2){
+						varAxuliar2 = ((UserProductorCreator)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = ((UserProductorCreator)(users.get(i))).getName() + " Reproductions: " + varAxuliar2;
+
+					}else if(((UserProductorCreator)(users.get(i))).countReproductions() > varAxuliar3){
+						varAxuliar3 = ((UserProductorCreator)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = top3;
+						top3 = ((UserProductorCreator)(users.get(i))).getName() + " Reproductions: " + varAxuliar3;
+
+					}else if(((UserProductorCreator)(users.get(i))).countReproductions() > varAxuliar4){
+						varAxuliar4 = ((UserProductorCreator)(users.get(i))).countReproductions();
+						top5 = top4;
+						top4 = ((UserProductorCreator)(users.get(i))).getName() + " Reproductions: " + varAxuliar4;
+
+					}else if(((UserProductorCreator)(users.get(i))).countReproductions() > varAxuliar5){
+						varAxuliar5 = ((UserProductorCreator)(users.get(i))).countReproductions();
+						top5 = ((UserProductorCreator)(users.get(i))).getName() + " Reproductions: " + varAxuliar5;
+					}
+				}
+			}
+		}
+		msj2 = top1 + "\n"+
+			   top2 + "\n"+
+			   top3 + "\n"+
+			   top4 + "\n"+
+			   top5 + "\n";
+
+		return "----Top 5 Artists----\n" +
+			   msj1 + "\n"+
+			   "----Top 5 Creators----\n" +
+			   msj2 + "\n";
+	}
+
+	/**
+	 * This method allows to list the  top 10 Songs and top 10 Podcasts 
+	 * based on the amount of reproductions and show their info.
+	 * @return msj = It contains the massage
+	 */
+	public String showTop10SongsAndPodcasts(){
+		String msj1 = "";
+		String msj2 = "";
+		//Reproductions
+		int varAxuliar1 = 0;
+		int varAxuliar2 = 0;
+		int varAxuliar3 = 0;
+		int varAxuliar4 = 0;
+		int varAxuliar5 = 0;
+		int varAxuliar6 = 0;
+		int varAxuliar7 = 0;
+		int varAxuliar8 = 0;
+		int varAxuliar9 = 0;
+		int varAxuliar10 = 0;
+
+		//names
+		String top1 = "";
+		String top2 = "";
+		String top3 = "";
+		String top4 = "";
+		String top5 = "";
+		String top6 = "";
+		String top7 = "";
+		String top8 = "";
+		String top9 = "";
+		String top10 = "";
+
+
+		//Songs
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar1){
+						varAxuliar1 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = top1;
+						top1 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar1;
+
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar2){
+						varAxuliar2 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar2;
+
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar3){
+						varAxuliar3 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = top3;
+						top3 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar3;
+
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar4){
+						varAxuliar4 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar4;
+
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar5){
+						varAxuliar5 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar5;
+
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar6){
+						varAxuliar6 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar6;
+
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar7){
+						varAxuliar7 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar7;
+
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar8){
+						varAxuliar8 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar8;
+						
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar9){
+						varAxuliar9 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar9;
+						
+					}else if(((Song)(totalAudios.get(i))).getReproductions() > varAxuliar10){
+						varAxuliar10 = ((Song)(totalAudios.get(i))).getReproductions();
+						top10 = ((Song)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar10;
+						
+					}
+				}
+			}
+		}
+		msj1 = top1 + "\n"+
+			  top2 + "\n"+
+			  top3 + "\n"+
+			  top4 + "\n"+
+			  top5 + "\n"+
+			  top6 + "\n"+
+			  top7 + "\n"+
+			  top8 + "\n"+
+			  top9 + "\n"+
+			  top10 + "\n";
+
+		top1 = "";
+		top2 = "";
+		top3 = "";
+		top4 = "";
+		top5 = "";
+		top6 = "";
+		top7 = "";
+		top8 = "";
+		top9 = "";
+		top10 = "";
+
+		//Podcast
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Podcast){
+					if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar1){
+						varAxuliar1 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = top1;
+						top1 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar1;
+
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar2){
+						varAxuliar2 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = top3;
+						top3 = top2;
+						top2 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar2;
+
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar3){
+						varAxuliar3 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = top3;
+						top3 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar3;
+
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar4){
+						varAxuliar4 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = top4;
+						top4 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar4;
+
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar5){
+						varAxuliar5 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = top5;
+						top5 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar5;
+
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar6){
+						varAxuliar6 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = top6;
+						top6 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar6;
+
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar7){
+						varAxuliar7 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = top7;
+						top7 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar7;
+
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar8){
+						varAxuliar8 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = top8;
+						top8 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar8;
+						
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar9){
+						varAxuliar9 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = top9;
+						top9 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar9;
+						
+					}else if(((Podcast)(totalAudios.get(i))).getReproductions() > varAxuliar10){
+						varAxuliar10 = ((Podcast)(totalAudios.get(i))).getReproductions();
+						top10 = ((Podcast)(totalAudios.get(i))).getName() + " Reproductions: " + varAxuliar10;
+						
+					}
+				}
+			}
+		}
+		msj2 = top1 + "\n"+
+			  top2 + "\n"+
+			  top3 + "\n"+
+			  top4 + "\n"+
+			  top5 + "\n"+
+			  top6 + "\n"+
+			  top7 + "\n"+
+			  top8 + "\n"+
+			  top9 + "\n"+
+			  top10 + "\n";
+
+		return "----Top 10 Songs----\n" +
+			   msj1 + "\n"+
+			   "----Top 10 Podcasts----\n" +
+			   msj2 + "\n";
+	}
+
+	/**
+	 * This method allows to count the amount of copies per genre and the total price collected
+	 * @return msj = it contains all the information
+	 */
+	public String showTotalSoldSong(){
+		String msj = "";
+		int copiessoldRock = 0;
+		int copiessoldPop = 0;
+		int copiessoldTrap = 0;
+		int copiessoldHouse = 0;
+		int moneyCollectedRock = 0;
+		int moneyCollectedPop = 0;
+		int moneyCollectedTrap = 0;
+		int moneyCollectedHouse = 0;
+
+		int type = -1;
+		for (int i = 0; i < totalAudios.size();i++){
+			if(totalAudios.get(i) instanceof Song){
+				type = ((Song)(totalAudios.get(i))).getOptionTypeSong();
+				if(type == 0){
+					copiessoldRock += ((Song)(totalAudios.get(i))).getSells();
+					moneyCollectedRock += copiessoldRock * ((Song)(totalAudios.get(i))).getCost();
+				}else if( type == 1){
+					copiessoldPop += ((Song)(totalAudios.get(i))).getSells();
+					moneyCollectedPop += copiessoldPop * ((Song)(totalAudios.get(i))).getCost();
+				}else if(type == 2){
+					copiessoldTrap += ((Song)(totalAudios.get(i))).getSells();
+					moneyCollectedTrap += copiessoldTrap * ((Song)(totalAudios.get(i))).getCost();
+				}else if(type == 3){
+					copiessoldHouse += ((Song)(totalAudios.get(i))).getSells();
+					moneyCollectedHouse += copiessoldHouse * ((Song)(totalAudios.get(i))).getCost();
+				}
+			}
+		}
+		msj = "****SONGS SOLDS:****\n" +
+			  "Rock: " + copiessoldRock + "\n"+
+			  "Pop: " + copiessoldPop + "\n"+
+			  "Trap: " + copiessoldTrap + "\n"+
+			  "House: " + copiessoldHouse + "\n"+
+			  "TOTAL: " + (copiessoldRock + copiessoldPop + copiessoldTrap + copiessoldHouse) + "\n"+
+			  "****MONEY COLLECTED:****\n"+
+			  "Rock: " + moneyCollectedRock + "\n"+
+			  "Pop: " + moneyCollectedPop + "\n"+
+			  "Trap: " + moneyCollectedTrap + "\n"+
+			  "House: " + moneyCollectedHouse + "\n"+
+			  "TOTAL: " + (moneyCollectedRock + moneyCollectedPop + moneyCollectedTrap + moneyCollectedHouse) + "\n";
+		return msj;
+	}
+
+	public String showCopiesAndMoneyCollectedFromMostSoldSong(){
+		String msj = "";
+		String songName = "";
+		int pos = -1;
+		double maxCounter = 0;
+		double moneycollected = 0;
+		for(int i = 0; i < totalAudios.size(); i++){
+			if(totalAudios.get(i) != null){
+				if(totalAudios.get(i) instanceof Song){
+					if(((Song)(totalAudios.get(i))).getSells() > maxCounter){
+						maxCounter = ((Song)(totalAudios.get(i))).getSells();
+						pos = i;
+					}
+				}
+			}
+		}
+
+		songName = ((Song)(totalAudios.get(pos))).getName();
+		moneycollected = (maxCounter * ((Song)(totalAudios.get(pos))).getCost());
+		msj = "The song most sold is: " + songName + "\n"+
+			  "Copies sold: "+ maxCounter + "\n"+
+			  "Money collected: " + moneycollected + "\n";
+		return msj;
+	}
 
 
 }

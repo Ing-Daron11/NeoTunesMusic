@@ -40,14 +40,12 @@ public class Song extends Audio{
 	}
 
 	public void setSells(int newSells){
-		this.sells = newSells;
+		this.sells += newSells;
 	}
 
-	public TypeSong getTypeSong(){
-		return this.typeSong;
+	public int getOptionTypeSong(){
+		return this.optionTypeSong;
 	}
-	  
 
 	
-
 }

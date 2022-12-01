@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class UserProductorArtist extends UserProductor{
 
 	private ArrayList<Song> songs;
+	private int reproductions;
 
 	/**
 	 * Constructor
@@ -34,10 +35,29 @@ public class UserProductorArtist extends UserProductor{
 		return msj;
 	}
 
+	public int countReproductions(){
+		int totalCounter = 0;
+		for(int i = 0; i < songs.size(); i++){
+			if(songs.get(i) != null){
+				totalCounter += songs.get(i).getReproductions();
+			}
+		}
+		return totalCounter;
+	}
+
+//----------------------------------------------- Getters and Setters ------------------------------------
+
   public String getCc(){
   	return super.cc;
   }
   
+  public int getReproductions(){
+  	return this.reproductions;
+  }
+
+  public void setReproductions(int newReproductions){
+  	this.reproductions += newReproductions;
+  }
 
 	
 }
